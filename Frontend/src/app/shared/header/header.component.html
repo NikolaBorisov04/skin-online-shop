@@ -1,1 +1,50 @@
-// header.html
+<header class="site-header" [class.is-open]="menuOpen">
+  <div class="header-main">
+    <a class="brand" routerLink="/" aria-label="Skin — početna strana" (click)="closeMenu()">
+      <span>SKIN</span>
+      <small>Kožna galanterija</small>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Glavna navigacija">
+      <a routerLink="/new">Novo</a>
+      <a routerLink="/products">Proizvodi</a>
+      <a routerLink="/brands">Brendovi</a>
+      <a routerLink="/about">O nama</a>
+      <a routerLink="/contact">Kontakt</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="theme-switcher" role="group" aria-label="Izaberite izgled stranice">
+        @for (mode of themeModes; track mode.value) {
+          <button type="button" [class.active]="themeMode === mode.value" [attr.aria-pressed]="themeMode === mode.value" [attr.aria-label]="mode.label" (click)="setTheme(mode.value)">
+            @if (mode.icon === 'sun') {
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+            } @else if (mode.icon === 'device') {
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>
+            } @else {
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 15.5A9 9 0 1 1 8.5 3.5a7 7 0 0 0 12 12Z"></path></svg>
+            }
+            <span>{{ mode.label }}</span>
+          </button>
+        }
+      </div>
+
+      <button class="icon-button cart-button" type="button" aria-label="Otvori korpu" (click)="openCart()">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z"></path><path d="M9 9V6a3 3 0 0 1 6 0v3"></path></svg>
+        @if (cartCount > 0) { <span class="cart-count">{{ cartCount }}</span> }
+      </button>
+
+      <button class="menu-button" type="button" [attr.aria-expanded]="menuOpen" aria-controls="mobile-navigation" aria-label="Otvori meni" (click)="toggleMenu()">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-navigation" class="mobile-nav" aria-label="Mobilna navigacija">
+    <a routerLink="/new" (click)="closeMenu()">Novo</a>
+    <a routerLink="/products" (click)="closeMenu()">Proizvodi</a>
+    <a routerLink="/brands" (click)="closeMenu()">Brendovi</a>
+    <a routerLink="/about" (click)="closeMenu()">O nama</a>
+    <a routerLink="/contact" (click)="closeMenu()">Kontakt</a>
+  </nav>
+</header>

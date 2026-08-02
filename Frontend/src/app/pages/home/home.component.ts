@@ -1,15 +1,14 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, EventEmitter, HostBinding, Inject, Injectable, Input, OnInit, Output, PLATFORM_ID, inject,} from '@angular/core';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, Inject, Injectable, Input, OnInit, Output, inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { BehaviorSubject, Observable, Subject, catchError, combineLatest, debounceTime, distinctUntilChanged, map, merge, of, switchMap, take, takeUntil, zip} from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, combineLatest, debounceTime, distinctUntilChanged, map, merge, of, switchMap, take, takeUntil, zip } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { Store, createActionGroup, createFeatureSelector, createReducer, createSelector, emptyProps, on, props } from '@ngrx/store';
 
 export type Brand = 'Manual Co' | 'Prince' | 'Falco';
 export type Category = 'Torbe' | 'Novčanici' | 'Kaiševi' | 'Poslovni program';
-export type ThemeMode = 'light' | 'system' | 'dark';
 
 export interface Product {
   id: string;
@@ -122,29 +121,17 @@ export class HomeComponent implements OnInit {
   private readonly search$ = new BehaviorSubject('');
   private readonly brand$ = new BehaviorSubject<Brand | 'Svi'>('Svi');
   private readonly category$ = new BehaviorSubject<Category | 'Sve'>('Sve');
-  private readonly systemTheme$ = new BehaviorSubject(false);
 
   @Input() initialBrand: Brand | 'Svi' = 'Svi';
   @Input() cart: readonly CartLine[] = [];
   @Output() addToCart = new EventEmitter<Product>();
-  @Output() cartOpen = new EventEmitter<void>();
-  @Output() themeChange = new EventEmitter<ThemeMode>();
-
-  @HostBinding('attr.data-theme') activeTheme: 'light' | 'dark' = 'light';
-  @HostBinding('class.menu-open') menuOpen = false;
 
   readonly brands: readonly (Brand | 'Svi')[] = ['Svi', 'Manual Co', 'Prince', 'Falco'];
   readonly categories: readonly (Category | 'Sve')[] = ['Sve', 'Torbe', 'Novčanici', 'Kaiševi', 'Poslovni program'];
-  readonly themeModes: readonly { value: ThemeMode; label: string; icon: string }[] = [
-    { value: 'light', label: 'Svetlo', icon: 'sun' },
-    { value: 'system', label: 'Uređaj', icon: 'device' },
-    { value: 'dark', label: 'Tamno', icon: 'moon' },
-  ];
 
   search = '';
   selectedBrand: Brand | 'Svi' = 'Svi';
   selectedCategory: Category | 'Sve' = 'Sve';
-  themeMode: ThemeMode = 'system';
   favorites = new Set<string>();
   addedProductId: string | null = null;
 
@@ -181,8 +168,6 @@ export class HomeComponent implements OnInit {
 
   constructor(
     @Inject(DOCUMENT) private readonly document: Document,
-    @Inject(PLATFORM_ID) private readonly platformId: object,
-    private readonly elementRef: ElementRef<HTMLElement>,
     destroyRef: DestroyRef,
   ) {
     destroyRef.onDestroy(() => {
@@ -194,7 +179,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.selectedBrand = this.initialBrand;
     this.brand$.next(this.initialBrand);
-    this.setupTheme();
 
     zip(of(true), this.store.select(selectProducts).pipe(take(1)))
       .pipe(takeUntil(this.destroy$))
@@ -223,45 +207,15 @@ export class HomeComponent implements OnInit {
     this.favorites = updated;
   }
 
-  openCart(): void { this.cartOpen.emit(); }
-  toggleMenu(): void { this.menuOpen = !this.menuOpen; }
-  closeMenu(): void { this.menuOpen = false; }
   browseCategory(category: Category): void { this.selectCategory(category); this.scrollToProducts(); }
   navigateToProduct(product: Product): void { void this.router.navigate(['/proizvodi', product.id]); }
   retry(): void { this.store.dispatch(HomeActions.loadProducts()); }
-
-  setTheme(mode: ThemeMode): void {
-    this.themeMode = mode;
-    if (isPlatformBrowser(this.platformId)) localStorage.setItem('skin-theme', mode);
-    this.applyTheme(mode, this.systemTheme$.value);
-    this.themeChange.emit(mode);
-  }
 
   trackProduct(_: number, product: Product): string { return product.id; }
   formatPrice(value: number): string { return new Intl.NumberFormat('sr-RS', { style: 'currency', currency: 'RSD', maximumFractionDigits: 0 }).format(value); }
 
   scrollToProducts(): void {
     this.document.getElementById('izdvajamo')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  private setupTheme(): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const saved = localStorage.getItem('skin-theme');
-    this.themeMode = saved === 'light' || saved === 'dark' || saved === 'system' ? saved : 'system';
-    this.systemTheme$.next(media.matches);
-    this.applyTheme(this.themeMode, media.matches);
-
-    const listener = (event: MediaQueryListEvent) => this.systemTheme$.next(event.matches);
-    media.addEventListener('change', listener);
-    this.systemTheme$.pipe(takeUntil(this.destroy$)).subscribe((dark) => {
-      if (this.themeMode === 'system') this.applyTheme('system', dark);
-    });
-  }
-
-  private applyTheme(mode: ThemeMode, systemDark: boolean): void {
-    this.activeTheme = mode === 'system' ? (systemDark ? 'dark' : 'light') : mode;
-    this.elementRef.nativeElement.style.colorScheme = this.activeTheme;
   }
 }
 
