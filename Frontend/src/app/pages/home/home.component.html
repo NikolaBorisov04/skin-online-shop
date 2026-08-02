@@ -1,10 +1,6 @@
 <a class="skip-link" href="#glavni-sadrzaj">Pređi na glavni sadržaj</a>
 
 <header class="site-header" [class.is-open]="menuOpen">
-  <div class="utility-bar">
-    <p>Besplatna dostava za porudžbine preko 10.000 RSD</p>
-    <a routerLink="/kontakt">Pomoć pri kupovini</a>
-  </div>
 
   <div class="header-main">
     <a class="brand" routerLink="/" aria-label="Skin — početna strana" (click)="closeMenu()">
@@ -13,10 +9,11 @@
     </a>
 
     <nav class="desktop-nav" aria-label="Glavna navigacija">
-      <a routerLink="/novo">Novo</a>
-      <a routerLink="/proizvodi">Proizvodi</a>
-      <a routerLink="/brendovi">Brendovi</a>
-      <a routerLink="/o-nama">O nama</a>
+      <a routerLink="/new">Novo</a>
+      <a routerLink="/products">Proizvodi</a>
+      <a routerLink="/brands">Brendovi</a>
+      <a routerLink="/about">O nama</a>
+      <a routerLink="/contact">Kontakt</a>
     </nav>
 
     <div class="header-actions">
@@ -47,10 +44,11 @@
   </div>
 
   <nav id="mobile-navigation" class="mobile-nav" aria-label="Mobilna navigacija">
-    <a routerLink="/novo" (click)="closeMenu()">Novo</a>
-    <a routerLink="/proizvodi" (click)="closeMenu()">Proizvodi</a>
-    <a routerLink="/brendovi" (click)="closeMenu()">Brendovi</a>
-    <a routerLink="/o-nama" (click)="closeMenu()">O nama</a>
+    <a routerLink="/new" (click)="closeMenu()">Novo</a>
+    <a routerLink="/products" (click)="closeMenu()">Proizvodi</a>
+    <a routerLink="/brands" (click)="closeMenu()">Brendovi</a>
+    <a routerLink="/about" (click)="closeMenu()">O nama</a>
+    <a routerLink="/contact" (click)="closeMenu()">Kontakt</a>
   </nav>
 </header>
 
@@ -92,9 +90,9 @@
       <a routerLink="/brendovi" class="text-link">Svi brendovi</a>
     </div>
     <div class="brand-grid">
-      <button type="button" class="brand-tile manual" (click)="selectBrand('Manual Co'); scrollToProducts()"><span>01</span><h3>Manual Co</h3><p>Autentičan dizajn i zanatska preciznost.</p><strong>Istraži brend →</strong></button>
-      <button type="button" class="brand-tile prince" (click)="selectBrand('Prince'); scrollToProducts()"><span>02</span><h3>Prince</h3><p>Klasična elegancija savremenog karaktera.</p><strong>Istraži brend →</strong></button>
-      <button type="button" class="brand-tile falco" (click)="selectBrand('Falco'); scrollToProducts()"><span>03</span><h3>Falco</h3><p>Funkcionalna forma za dinamičan dan.</p><strong>Istraži brend →</strong></button>
+      <button type="button" class="brand-tile manual" (click)="selectBrand('Manual Co'); scrollToProducts()"><h3>Manual Co</h3><p>Autentičan dizajn i zanatska preciznost.</p><strong>Istraži brend →</strong></button>
+      <button type="button" class="brand-tile prince" (click)="selectBrand('Prince'); scrollToProducts()"><h3>Prince</h3><p>Klasična elegancija savremenog karaktera.</p><strong>Istraži brend →</strong></button>
+      <button type="button" class="brand-tile falco" (click)="selectBrand('Falco'); scrollToProducts()"><h3>Falco</h3><p>Funkcionalna forma za dinamičan dan.</p><strong>Istraži brend →</strong></button>
     </div>
   </section>
 
