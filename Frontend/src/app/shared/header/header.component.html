@@ -6,11 +6,12 @@
     </a>
 
     <nav class="desktop-nav" aria-label="Glavna navigacija">
-      <a routerLink="/new">Novo</a>
-      <a routerLink="/products">Proizvodi</a>
-      <a routerLink="/brands">Brendovi</a>
-      <a routerLink="/about">O nama</a>
-      <a routerLink="/contact">Kontakt</a>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Početna</a>
+      <a routerLink="/new" routerLinkActive="active">Novo</a>
+      <a routerLink="/products" routerLinkActive="active">Proizvodi</a>
+      <a routerLink="/brands" routerLinkActive="active">Brendovi</a>
+      <a routerLink="/about" routerLinkActive="active">O nama</a>
+      <a routerLink="/contact" routerLinkActive="active">Kontakt</a>
     </nav>
 
     <div class="header-actions">
@@ -41,10 +42,11 @@
   </div>
 
   <nav id="mobile-navigation" class="mobile-nav" aria-label="Mobilna navigacija">
-    <a routerLink="/new" (click)="closeMenu()">Novo</a>
-    <a routerLink="/products" (click)="closeMenu()">Proizvodi</a>
-    <a routerLink="/brands" (click)="closeMenu()">Brendovi</a>
-    <a routerLink="/about" (click)="closeMenu()">O nama</a>
-    <a routerLink="/contact" (click)="closeMenu()">Kontakt</a>
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Početna</a>
+    <a routerLink="/new" routerLinkActive="active" (click)="closeMenu()">Novo</a>
+    <a routerLink="/products" routerLinkActive="active" (click)="closeMenu()">Proizvodi</a>
+    <a routerLink="/brands" routerLinkActive="active" (click)="closeMenu()">Brendovi</a>
+    <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">O nama</a>
+    <a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Kontakt</a>
   </nav>
 </header>

@@ -180,6 +180,11 @@
   font-size: 1.35rem;
   text-decoration: none;
   color: inherit;
+  transition: color .2s ease;
+}
+
+.mobile-nav a.active {
+  color: var(--accent, #9a5d34);
 }
 
 @media (min-width: 48rem) {
@@ -226,6 +231,15 @@
 
   .desktop-nav a:hover::after {
     transform: scaleX(1);
+  }
+
+  .desktop-nav a.active {
+    color: var(--accent, #9a5d34);
+  }
+
+  .desktop-nav a.active::after {
+    transform: scaleX(1);
+    background: var(--accent, #9a5d34);
   }
 
   .menu-button, .mobile-nav {

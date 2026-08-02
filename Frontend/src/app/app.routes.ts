@@ -3,4 +3,9 @@ import { HomeComponent } from './pages/home/home.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  {
+    path: 'about',
+    loadComponent: () => import('./pages/about/about.component').then((m) => m.AboutComponent),
+  },
+  { path: 'o-nama', redirectTo: 'about', pathMatch: 'full' },
 ];

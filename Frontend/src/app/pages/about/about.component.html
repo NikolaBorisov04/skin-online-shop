@@ -1,0 +1,76 @@
+<a class="skip-link" href="#about-content">Pređi na glavni sadržaj</a>
+
+<main id="about-content">
+  <section class="about-hero" aria-labelledby="about-title">
+    <div class="hero-content">
+      <p class="eyebrow">Koža sa dušom · Tradicija u svakom detalju</p>
+      <h1 id="about-title">Priča iza svakog <em>šava.</em></h1>
+      <p class="hero-copy">Skin je nastao iz dubokog poštovanja prema zanatu i želje da ponudimo komade galanterije koji nose priču, traju decenijama i stare sa stilom.</p>
+      <div class="hero-actions">
+        <a routerLink="/products" class="primary-button">Istraži kolekciju <span aria-hidden="true">→</span></a>
+        <a routerLink="/contact" class="text-link">Kontaktirajte nas</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1600&q=90" alt="Majstor pri radu sa prirodnom kožom" fetchpriority="high">
+    </div>
+  </section>
+
+  <section class="philosophy-section" aria-labelledby="philosophy-title">
+    <div class="section-container">
+      <div class="section-header">
+        <p class="eyebrow">Naša filozofija</p>
+        <h2 id="philosophy-title">Kvalitet koji se ne dokazuje, već oseća.</h2>
+      </div>
+      <p class="philosophy-text">
+        U svetu brze mode i prolaznih trendova, biramo teži ali vredniji put. Svaki predmet u našoj ponudi je rezultat spoja pažljivo birane sirovine, zanatskog umeća i strasti prema estetici. Ne pravimo kompromise kada su u pitanju trajnost, izrada i funkcionalnost.
+      </p>
+    </div>
+  </section>
+
+  <section class="values-section" aria-labelledby="values-title">
+    <div class="section-header">
+      <p class="eyebrow">Temeljne vrednosti</p>
+      <h2 id="values-title">Na čemu gradimo brend</h2>
+    </div>
+    <div class="values-grid">
+      @for (val of values; track val.number) {
+        <article class="value-card">
+          <span class="value-number">{{ val.number }}</span>
+          <h3>{{ val.title }}</h3>
+          <p>{{ val.description }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="timeline-section" aria-labelledby="timeline-title">
+    <div class="section-header">
+      <p class="eyebrow">Razvojni put</p>
+      <h2 id="timeline-title">Miljokazi našeg stvaralaštva</h2>
+    </div>
+    <div class="timeline">
+      @for (m of milestones; track m.year) {
+        <div class="timeline-item">
+          <div class="timeline-year">{{ m.year }}</div>
+          <div class="timeline-body">
+            <h3>{{ m.title }}</h3>
+            <p>{{ m.description }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="craft-banner">
+    <div class="banner-image">
+      <img src="https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=1400&q=85" alt="Detalj ručne obrade prirodne kože" loading="lazy">
+    </div>
+    <div class="banner-content">
+      <p class="eyebrow">Posetite nas</p>
+      <h2>Doživite autentičnost uživo.</h2>
+      <p>Iskusite miris prirodne kože i finoću obrade u našim izložbenim prostorima ili poručite sa potpunom sigurnošću online.</p>
+      <a routerLink="/contact" class="primary-button">Pronađite radnju <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</main>

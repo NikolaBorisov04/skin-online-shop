@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 
 export type ThemeMode = 'light' | 'system' | 'dark';
@@ -8,7 +8,7 @@ export type ThemeMode = 'light' | 'system' | 'dark';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
