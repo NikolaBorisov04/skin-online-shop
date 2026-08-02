@@ -1,0 +1,178 @@
+<a class="skip-link" href="#glavni-sadrzaj">Pređi na glavni sadržaj</a>
+
+<header class="site-header" [class.is-open]="menuOpen">
+  <div class="utility-bar">
+    <p>Besplatna dostava za porudžbine preko 10.000 RSD</p>
+    <a routerLink="/kontakt">Pomoć pri kupovini</a>
+  </div>
+
+  <div class="header-main">
+    <a class="brand" routerLink="/" aria-label="Skin — početna strana" (click)="closeMenu()">
+      <span>SKIN</span>
+      <small>Kožna galanterija</small>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Glavna navigacija">
+      <a routerLink="/novo">Novo</a>
+      <a routerLink="/proizvodi">Proizvodi</a>
+      <a routerLink="/brendovi">Brendovi</a>
+      <a routerLink="/o-nama">O nama</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="theme-switcher" role="group" aria-label="Izaberite izgled stranice">
+        @for (mode of themeModes; track mode.value) {
+          <button type="button" [class.active]="themeMode === mode.value" [attr.aria-pressed]="themeMode === mode.value" [attr.aria-label]="mode.label" (click)="setTheme(mode.value)">
+            @if (mode.icon === 'sun') {
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+            } @else if (mode.icon === 'device') {
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>
+            } @else {
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 15.5A9 9 0 1 1 8.5 3.5a7 7 0 0 0 12 12Z"></path></svg>
+            }
+            <span>{{ mode.label }}</span>
+          </button>
+        }
+      </div>
+
+      <button class="icon-button cart-button" type="button" aria-label="Otvori korpu" (click)="openCart()">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z"></path><path d="M9 9V6a3 3 0 0 1 6 0v3"></path></svg>
+        @if (cartCount() > 0) { <span class="cart-count">{{ cartCount() }}</span> }
+      </button>
+
+      <button class="menu-button" type="button" [attr.aria-expanded]="menuOpen" aria-controls="mobile-navigation" aria-label="Otvori meni" (click)="toggleMenu()">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-navigation" class="mobile-nav" aria-label="Mobilna navigacija">
+    <a routerLink="/novo" (click)="closeMenu()">Novo</a>
+    <a routerLink="/proizvodi" (click)="closeMenu()">Proizvodi</a>
+    <a routerLink="/brendovi" (click)="closeMenu()">Brendovi</a>
+    <a routerLink="/o-nama" (click)="closeMenu()">O nama</a>
+  </nav>
+</header>
+
+<main id="glavni-sadrzaj">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-content">
+      <p class="eyebrow">Odabrano sa razlogom · Napravljeno da traje</p>
+      <h1 id="hero-title">Koža koja nosi <em>vašu priču.</em></h1>
+      <p class="hero-copy">Originalni Manual Co, Prince i Falco komadi za svaki dan — pažljivo odabrani, brzo isporučeni.</p>
+      <div class="hero-actions">
+        <button class="primary-button" type="button" (click)="browseCategory('Torbe')">Istraži kolekciju <span aria-hidden="true">→</span></button>
+        <a class="text-link" routerLink="/novo">Pogledaj novitete</a>
+      </div>
+      <dl class="hero-notes">
+        <div><dt>100%</dt><dd>prirodna koža</dd></div>
+        <div><dt>24–48h</dt><dd>brza isporuka</dd></div>
+        <div><dt>14 dana</dt><dd>za zamenu</dd></div>
+      </dl>
+    </div>
+
+    <div class="hero-visual">
+      <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1600&q=90" alt="Luksuzna kožna torba boje konjaka" fetchpriority="high">
+      <div class="hero-product-card">
+        <div><span>Manual Co</span><strong>Luna torba</strong></div>
+        <span>24.990 RSD</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="benefits" aria-label="Pogodnosti kupovine">
+    <article><span>01</span><div><h2>Proveren kvalitet</h2><p>Samo originalni proizvodi od pažljivo obrađene kože.</p></div></article>
+    <article><span>02</span><div><h2>Sigurna kupovina</h2><p>Zaštićeno plaćanje i podrška pre i posle porudžbine.</p></div></article>
+    <article><span>03</span><div><h2>Spremno za poklon</h2><p>Premium pakovanje bez dodatne naplate.</p></div></article>
+  </section>
+
+  <section class="brands-section" aria-labelledby="brands-title">
+    <div class="section-heading">
+      <div><p class="eyebrow">Kuće koje cenimo</p><h2 id="brands-title">Tri potpisa. Jedna strast.</h2></div>
+      <a routerLink="/brendovi" class="text-link">Svi brendovi</a>
+    </div>
+    <div class="brand-grid">
+      <button type="button" class="brand-tile manual" (click)="selectBrand('Manual Co'); scrollToProducts()"><span>01</span><h3>Manual Co</h3><p>Autentičan dizajn i zanatska preciznost.</p><strong>Istraži brend →</strong></button>
+      <button type="button" class="brand-tile prince" (click)="selectBrand('Prince'); scrollToProducts()"><span>02</span><h3>Prince</h3><p>Klasična elegancija savremenog karaktera.</p><strong>Istraži brend →</strong></button>
+      <button type="button" class="brand-tile falco" (click)="selectBrand('Falco'); scrollToProducts()"><span>03</span><h3>Falco</h3><p>Funkcionalna forma za dinamičan dan.</p><strong>Istraži brend →</strong></button>
+    </div>
+  </section>
+
+  <section id="izdvajamo" class="products-section" aria-labelledby="products-title">
+    <div class="section-heading products-heading">
+      <div><p class="eyebrow">Skin selekcija</p><h2 id="products-title">Izdvajamo za vas</h2></div>
+      <div class="catalog-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+        <label class="sr-only" for="catalog-search">Pretraži proizvode</label>
+        <input id="catalog-search" type="search" placeholder="Pretraži kolekciju" [ngModel]="search" (ngModelChange)="onSearch($event)">
+      </div>
+    </div>
+
+    <div class="filters" aria-label="Filteri kataloga">
+      <div class="filter-group">
+        @for (brand of brands; track brand) {
+          <button type="button" [class.active]="selectedBrand === brand" [attr.aria-pressed]="selectedBrand === brand" (click)="selectBrand(brand)">{{ brand }}</button>
+        }
+      </div>
+      <label class="category-select">Kategorija
+        <select [ngModel]="selectedCategory" (ngModelChange)="selectCategory($event)">
+          @for (category of categories; track category) { <option [value]="category">{{ category }}</option> }
+        </select>
+      </label>
+    </div>
+
+    @if (vm$ | async; as vm) {
+      <div class="catalog-meta" aria-live="polite"><span>{{ vm.resultCount }} proizvoda</span><span>Ukupna vrednost selekcije: {{ formatPrice(vm.totalValue) }}</span></div>
+
+      @if (vm.loading) {
+        <div class="product-grid" aria-label="Učitavanje proizvoda">
+          @for (item of [1,2,3,4]; track item) { <div class="skeleton-card"><div></div><span></span><span></span></div> }
+        </div>
+      } @else if (vm.error) {
+        <div class="state-message" role="alert"><h3>Katalog trenutno nije dostupan</h3><p>{{ vm.error }}</p><button class="primary-button" type="button" (click)="retry()">Pokušaj ponovo</button></div>
+      } @else if (vm.products.length === 0) {
+        <div class="state-message"><h3>Nema rezultata</h3><p>Promenite pretragu ili izaberite drugi filter.</p><button class="text-link button-link" type="button" (click)="onSearch(''); selectBrand('Svi'); selectCategory('Sve')">Poništi filtere</button></div>
+      } @else {
+        <div class="product-grid">
+          @for (product of vm.products; track product.id) {
+            <article class="product-card">
+              <div class="product-image-wrap">
+                <button type="button" class="product-image-button" (click)="navigateToProduct(product)" [attr.aria-label]="'Otvori proizvod ' + product.name">
+                  <img [src]="product.image" [alt]="product.name + ', ' + product.color" loading="lazy">
+                </button>
+                @if (product.badge) { <span class="badge">{{ product.badge }}</span> }
+                <button type="button" class="favorite" [class.active]="favorites.has(product.id)" [attr.aria-pressed]="favorites.has(product.id)" [attr.aria-label]="favorites.has(product.id) ? 'Ukloni iz omiljenih' : 'Dodaj u omiljene'" (click)="toggleFavorite(product.id)">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"></path></svg>
+                </button>
+                <button type="button" class="quick-add" [class.added]="addedProductId === product.id" (click)="quickAdd(product)">{{ addedProductId === product.id ? 'Dodato u korpu' : 'Brzo dodaj' }}</button>
+              </div>
+              <div class="product-info">
+                <div><p>{{ product.brand }} · {{ product.category }}</p><h3><button type="button" (click)="navigateToProduct(product)">{{ product.name }}</button></h3></div>
+                <div class="price"><strong>{{ formatPrice(product.price) }}</strong>@if (product.oldPrice) { <del>{{ formatPrice(product.oldPrice) }}</del> }</div>
+              </div>
+            </article>
+          }
+        </div>
+      }
+    }
+  </section>
+
+  <section class="story-section">
+    <div class="story-image"><img src="https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=1400&q=85" alt="Majstor ručno obrađuje prirodnu kožu" loading="lazy"></div>
+    <div class="story-content"><p class="eyebrow">Dodir zanata</p><h2>Lepota koja sazreva s vremenom.</h2><p>Verujemo u predmete koji ne izlaze iz mode. Zato biramo kožu koja razvija jedinstvenu patinu i konstrukciju koja podnosi ritam svakodnevice.</p><a routerLink="/o-nama" class="text-link">Upoznajte Skin priču</a></div>
+  </section>
+
+  <section class="newsletter" aria-labelledby="newsletter-title">
+    <p class="eyebrow">Privatni pristup</p><h2 id="newsletter-title">Budite prvi koji bira.</h2><p>Noviteti, limitirane serije i pažljivo odabrane priče — bez suvišnih poruka.</p>
+    <form class="newsletter-form" (submit)="$event.preventDefault()">
+      <label class="sr-only" for="newsletter-email">Vaša imejl adresa</label><input id="newsletter-email" type="email" placeholder="Vaša imejl adresa" autocomplete="email" required><button type="submit">Prijavi me <span aria-hidden="true">→</span></button>
+    </form>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <a class="brand footer-brand" routerLink="/"><span>SKIN</span><small>Kožna galanterija</small></a>
+  <p>Originalni komadi. Sigurna kupovina. Dostava širom Srbije.</p>
+  <nav aria-label="Pravne informacije"><a routerLink="/uslovi-koriscenja">Uslovi korišćenja</a><a routerLink="/privatnost">Privatnost</a><a routerLink="/kontakt">Kontakt</a></nav>
+  <small>© 2026 Skin. Sva prava zadržana.</small>
+</footer>
