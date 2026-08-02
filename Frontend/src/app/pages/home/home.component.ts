@@ -1,37 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  ElementRef,
-  EventEmitter,
-  HostBinding,
-  Inject,
-  Injectable,
-  Input,
-  OnInit,
-  Output,
-  PLATFORM_ID,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, EventEmitter, HostBinding, Inject, Injectable, Input, OnInit, Output, PLATFORM_ID, inject,} from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import {
-  BehaviorSubject,
-  Observable,
-  Subject,
-  catchError,
-  combineLatest,
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  merge,
-  of,
-  switchMap,
-  take,
-  takeUntil,
-  zip,
-} from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, combineLatest, debounceTime, distinctUntilChanged, map, merge, of, switchMap, take, takeUntil, zip} from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { Store, createActionGroup, createFeatureSelector, createReducer, createSelector, emptyProps, on, props } from '@ngrx/store';
