@@ -19,4 +19,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/register/register.component').then((m) => m.RegisterComponent),
   },
   { path: 'registracija', redirectTo: 'register', pathMatch: 'full' },
+  {
+    path: 'lost-password',
+    loadComponent: () => import('./pages/lost-password/lost-password.component').then((m) => m.LostPasswordComponent),
+  },
+  { path: 'zaboravljena-lozinka', redirectTo: 'lost-password', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home' },
 ];
