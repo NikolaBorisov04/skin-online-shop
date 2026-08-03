@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { provideStore, provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 
@@ -9,7 +9,10 @@ import { HOME_FEATURE_KEY, homeReducer, HomeEffects } from './pages/home/home.co
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
+    provideRouter(
+      routes,
+      withInMemoryScrolling({ scrollPositionRestoration: 'top' })
+    ),
     provideStore(),
     provideState(HOME_FEATURE_KEY, homeReducer),
     provideEffects(HomeEffects),
