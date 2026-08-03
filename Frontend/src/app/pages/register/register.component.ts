@@ -21,6 +21,7 @@ export class RegisterComponent {
   postalCode = '';
   password = '';
   confirmPassword = '';
+  showPassword = false;
 
   get passwordsMatch(): boolean {
     return this.password.length > 0 && this.password === this.confirmPassword;
@@ -39,6 +40,16 @@ export class RegisterComponent {
       this.confirmPassword.trim() &&
       this.passwordsMatch
     );
+  }
+
+  onPasswordChange(): void {
+    if (!this.password) {
+      this.confirmPassword = '';
+    }
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   onSubmit(): void {

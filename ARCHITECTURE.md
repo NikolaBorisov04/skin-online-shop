@@ -54,7 +54,7 @@ Temu aplikacije za svaki projekat birate sami, uz bitnu napomenu da se originaln
 ================================================================================
 4. BEZBEDNOST (PRODUCTION-READY SECURITY)
 ================================================================================
-- **Auth:** Passport.js + JWT strategija, `bcrypt` heširanje lozinki.
+- **Auth:** Passport.js + JWT strategija, `bcrypt` heširanje lozinki. Sinhronizovana vidljivost lozinki u formama i uslovno onemogućavanje unosa radi sprečavanja grešaka.
 - **Sanitizacija & Validacija:** `class-validator` + `ValidationPipe` na svim DTO-ovima.
 - **Zaštita od SQL Injection-a:** TypeORM parametrizovani upiti.
 - **Rate Limiting:** `@nestjs/throttler` za zaštitu od DDoS/Brute-force napada.

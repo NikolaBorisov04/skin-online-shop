@@ -78,13 +78,31 @@ h1 {
   align-items: center;
 
   input {
-    padding-right: 2.75rem;
+    padding-right: 4.5rem;
+  }
+}
+
+.toggle-password {
+  position: absolute;
+  right: .75rem;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .25rem;
+  transition: color .2s ease;
+
+  &:hover {
+    color: var(--text);
   }
 }
 
 .match-check {
   position: absolute;
-  right: .75rem;
+  right: 2.5rem;
   color: #2e7d32;
   display: flex;
   align-items: center;
@@ -121,6 +139,11 @@ input[type="tel"] {
 
   &::placeholder {
     color: var(--muted);
+  }
+
+  &:disabled {
+    opacity: .5;
+    cursor: not-allowed;
   }
 }
 
