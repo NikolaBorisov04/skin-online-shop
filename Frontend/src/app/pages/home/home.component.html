@@ -108,10 +108,13 @@
     <div class="story-content"><p class="eyebrow">Dodir zanata</p><h2>Lepota koja sazreva s vremenom.</h2><p>Verujemo u predmete koji ne izlaze iz mode. Zato biramo kožu koja razvija jedinstvenu patinu i konstrukciju koja podnosi ritam svakodnevice.</p><a routerLink="/o-nama" class="text-link">Upoznajte Skin priču</a></div>
   </section>
 
-  <section class="newsletter" aria-labelledby="newsletter-title">
-    <p class="eyebrow">Privatni pristup</p><h2 id="newsletter-title">Budite prvi koji bira.</h2><p>Noviteti, limitirane serije i pažljivo odabrane priče — bez suvišnih poruka.</p>
-    <form class="newsletter-form" (submit)="$event.preventDefault()">
-      <label class="sr-only" for="newsletter-email">Vaša imejl adresa</label><input id="newsletter-email" type="email" placeholder="Vaša imejl adresa" autocomplete="email" required><button type="submit">Prijavi me <span aria-hidden="true">→</span></button>
-    </form>
+  <section class="newsletter" aria-labelledby="account-section-title">
+    <p class="eyebrow">Vaš Skin nalog</p>
+    <h2 id="account-section-title">Brža kupovina i praćenje porudžbina</h2>
+    <p>Kreirajte nalog za jednostavnije ponovno naručivanje i uvid u status Vaših porudžbina u svakom trenutku!</p>
+    <div class="account-actions">
+      <a routerLink="/prijava" class="account-button primary">Prijavi se <span aria-hidden="true">→</span></a>
+      <a routerLink="/registracija" class="account-button secondary">Napravi nalog</a>
+    </div>
   </section>
 </main>
