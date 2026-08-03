@@ -22,7 +22,27 @@ export class RegisterComponent {
   password = '';
   confirmPassword = '';
 
+  get passwordsMatch(): boolean {
+    return this.password.length > 0 && this.password === this.confirmPassword;
+  }
+
+  get isFormValid(): boolean {
+    return !!(
+      this.fullName.trim() &&
+      this.email.trim() &&
+      this.phone.trim() &&
+      this.country.trim() &&
+      this.city.trim() &&
+      this.address.trim() &&
+      this.postalCode.trim() &&
+      this.password.trim() &&
+      this.confirmPassword.trim() &&
+      this.passwordsMatch
+    );
+  }
+
   onSubmit(): void {
+    if (!this.isFormValid) return;
     // Backend registration integration
   }
 }

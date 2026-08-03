@@ -72,6 +72,34 @@ h1 {
   align-items: center;
 }
 
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  input {
+    padding-right: 2.75rem;
+  }
+}
+
+.toggle-password {
+  position: absolute;
+  right: .75rem;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .25rem;
+  transition: color .2s ease;
+
+  &:hover {
+    color: var(--text);
+  }
+}
+
 label {
   font-size: .72rem;
   font-weight: 700;
@@ -193,13 +221,18 @@ input[type="tel"] {
   transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
   margin-top: .5rem;
 
-  &:hover {
+  &:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: var(--shadow);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: .45;
+    cursor: not-allowed;
   }
 }
 

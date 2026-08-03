@@ -15,8 +15,18 @@ export class LoginComponent {
   email = '';
   password = '';
   rememberMe = false;
+  showPassword = false;
+
+  get isFormValid(): boolean {
+    return this.email.trim().length > 0 && this.password.trim().length > 0;
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
 
   onSubmit(): void {
+    if (!this.isFormValid) return;
     // Backend login integration
   }
 }
