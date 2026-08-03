@@ -1,0 +1,66 @@
+<main class="auth-page" id="glavni-sadrzaj">
+  <div class="auth-container">
+    <div class="auth-header">
+      <p class="eyebrow">Pridružite se nama</p>
+      <h1>Kreirajte Vaš nalog</h1>
+      <p class="sub-text">Unesite podatke za dostavu i pristup nalogu kako biste skratili vreme kupovine.</p>
+    </div>
+
+    <form class="auth-form" (submit)="onSubmit(); $event.preventDefault()">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label for="reg-name">Ime i prezime</label>
+          <input id="reg-name" type="text" [(ngModel)]="fullName" name="fullName" placeholder="Marko Marković" required autocomplete="name">
+        </div>
+
+        <div class="form-group">
+          <label for="reg-email">Imejl adresa</label>
+          <input id="reg-email" type="email" [(ngModel)]="email" name="email" placeholder="vaša@adresa.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="reg-phone">Broj telefona</label>
+          <input id="reg-phone" type="tel" [(ngModel)]="phone" name="phone" placeholder="+381 6X XXX XXXX" required autocomplete="tel">
+        </div>
+
+        <div class="form-group">
+          <label for="reg-country">Država</label>
+          <input id="reg-country" type="text" [(ngModel)]="country" name="country" placeholder="Srbija" required autocomplete="country-name">
+        </div>
+
+        <div class="form-group">
+          <label for="reg-city">Grad</label>
+          <input id="reg-city" type="text" [(ngModel)]="city" name="city" placeholder="Beograd" required autocomplete="address-level2">
+        </div>
+
+        <div class="form-group">
+          <label for="reg-address">Adresa (ulica i broj)</label>
+          <input id="reg-address" type="text" [(ngModel)]="address" name="address" placeholder="Knez Mihailova 10" required autocomplete="street-address">
+        </div>
+
+        <div class="form-group">
+          <label for="reg-postal">Poštanski broj</label>
+          <input id="reg-postal" type="text" [(ngModel)]="postalCode" name="postalCode" placeholder="11000" required autocomplete="postal-code">
+        </div>
+
+        <div class="form-group">
+          <label for="reg-password">Lozinka</label>
+          <input id="reg-password" type="password" [(ngModel)]="password" name="password" placeholder="••••••••" required autocomplete="new-password">
+        </div>
+
+        <div class="form-group">
+          <label for="reg-confirm">Potvrdite lozinku</label>
+          <input id="reg-confirm" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="••••••••" required autocomplete="new-password">
+        </div>
+      </div>
+
+      <button type="submit" class="submit-button">
+        Registruj se <span aria-hidden="true">→</span>
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Već imate nalog? <a routerLink="/login" class="auth-link">Prijavite se</a></p>
+    </div>
+  </div>
+</main>
