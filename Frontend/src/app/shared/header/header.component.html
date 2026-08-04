@@ -1,12 +1,12 @@
 <header class="site-header" [class.is-open]="menuOpen">
   <div class="header-main">
-    <a class="brand" routerLink="/" aria-label="Skin — početna strana" (click)="closeMenu()">
+    <a class="brand" routerLink="/home" aria-label="Skin — početna strana" (click)="closeMenu()">
       <span>SKIN</span>
       <small>Kožna galanterija</small>
     </a>
 
     <nav class="desktop-nav" aria-label="Glavna navigacija">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Početna</a>
+      <a routerLink="/home" routerLinkActive="active">Početna</a>
       <a routerLink="/new" routerLinkActive="active">Novo</a>
       <a routerLink="/products" routerLinkActive="active">Proizvodi</a>
       <a routerLink="/brands" routerLinkActive="active">Brendovi</a>
@@ -42,7 +42,7 @@
   </div>
 
   <nav id="mobile-navigation" class="mobile-nav" aria-label="Mobilna navigacija">
-    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Početna</a>
+    <a routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Početna</a>
     <a routerLink="/new" routerLinkActive="active" (click)="closeMenu()">Novo</a>
     <a routerLink="/products" routerLinkActive="active" (click)="closeMenu()">Proizvodi</a>
     <a routerLink="/brands" routerLinkActive="active" (click)="closeMenu()">Brendovi</a>
