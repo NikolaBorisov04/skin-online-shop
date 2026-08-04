@@ -252,8 +252,9 @@ h1 em {
 
 .craft-banner {
   display: grid;
-  background: #171612;
-  color: #f5f0e7;
+  background: var(--surface);
+  color: var(--text);
+  border-top: 1px solid var(--line);
 }
 
 .banner-image img {
@@ -269,25 +270,15 @@ h1 em {
   padding: 4rem 1.25rem;
 }
 
-.banner-content .eyebrow {
-  color: #c17b4d;
-}
-
 .banner-content h2 {
   font-size: clamp(2.2rem, 6vw, 4.2rem);
 }
 
 .banner-content p {
   margin: 1.2rem 0 2rem;
-  color: #aaa397;
+  color: var(--muted);
   max-width: 32rem;
   line-height: 1.65;
-}
-
-.banner-content .primary-button {
-  border-color: #f5f0e7;
-  color: #171612;
-  background: #f5f0e7;
 }
 
 @media (min-width: 48rem) {
