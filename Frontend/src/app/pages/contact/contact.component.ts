@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   DestroyRef,
   EventEmitter,
@@ -76,10 +77,10 @@ export interface ContactChannel {
 export const DEFAULT_CONTACT: ContactDetails = {
   address: 'Dušanova 96',
   city: '18000 Niš, Srbija',
-  email: 'prodaja@skin.rs',
-  phone: '+381 18 555 096',
-  phoneHref: '+38118555096',
-  workingHours: ['Ponedeljak–petak · 09–20h', 'Subota · 10–16h', 'Nedelja · zatvoreno'],
+  email: 'skin.manual@gmail.com',
+  phone: '+381 69 194 1839',
+  phoneHref: '+381691941839',
+  workingHours: ['Ponedeljak–petak · 10–21h', 'Subota · 10–15h', 'Nedelja · zatvoreno'],
 };
 
 @Injectable({ providedIn: 'root' })
@@ -183,6 +184,7 @@ export class ContactComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
+  private readonly cdr = inject(ChangeDetectorRef);
   private readonly destroy$ = new Subject<void>();
   private readonly systemTheme$ = new BehaviorSubject(false);
   private readonly formInteraction$ = new Subject<'changed' | 'submitted'>();
@@ -227,8 +229,8 @@ export class ContactComponent implements OnInit {
       {
         label: 'Posetite nas',
         value: `${this.contact.address}, ${this.contact.city}`,
-        href: 'https://www.openstreetmap.org/search?query=Du%C5%A1anova%2096%2C%20Ni%C5%A1',
-        note: 'Prikaži putanju',
+        href: 'https://maps.google.com/?q=Du%C5%A1anova+96,+Ni%C5%A1',
+        note: 'Prikaži na Google Maps',
         icon: 'pin' as const,
       },
       { label: 'Pišite nam', value: this.contact.email, href: `mailto:${this.contact.email}`, note: 'Odgovaramo u toku dana', icon: 'mail' as const },
@@ -300,7 +302,7 @@ export class ContactComponent implements OnInit {
 
   toggleMenu(): void { this.menuOpen = !this.menuOpen; }
   closeMenu(): void { this.menuOpen = false; }
-  continueShopping(): void { void this.router.navigate(['/proizvodi']); }
+  continueShopping(): void { void this.router.navigate(['/home']); }
 
   private createMessage(): ContactMessage {
     const raw = this.form.getRawValue();
@@ -326,6 +328,25 @@ export class ContactComponent implements OnInit {
 
   private setupTheme(): void {
     if (!isPlatformBrowser(this.platformId)) return;
+
+    const syncThemeFromDOM = () => {
+      const docTheme = this.document.documentElement.getAttribute('data-theme') || this.document.body.getAttribute('data-theme');
+      if (docTheme === 'dark' || docTheme === 'light') {
+        if (this.activeTheme !== docTheme) {
+          this.activeTheme = docTheme;
+          this.cdr.markForCheck();
+        }
+      }
+    };
+
+    syncThemeFromDOM();
+
+    const observer = new MutationObserver(() => syncThemeFromDOM());
+    observer.observe(this.document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    observer.observe(this.document.body, { attributes: true, attributeFilter: ['data-theme'] });
+
+    this.destroy$.subscribe(() => observer.disconnect());
+
     const media = window.matchMedia('(prefers-color-scheme: dark)');
     const saved = localStorage.getItem('skin-theme');
     this.themeMode = saved === 'light' || saved === 'dark' || saved === 'system' ? saved : 'system';
@@ -342,13 +363,10 @@ export class ContactComponent implements OnInit {
   }
 
   private applyTheme(mode: ThemeMode, systemDark: boolean): void {
-    this.activeTheme = mode === 'system' ? (systemDark ? 'dark' : 'light') : mode;
+    const active = mode === 'system' ? (systemDark ? 'dark' : 'light') : mode;
+    this.activeTheme = active;
+    this.document.documentElement.setAttribute('data-theme', active);
+    this.document.body.setAttribute('data-theme', active);
+    this.cdr.markForCheck();
   }
 }
-
-/*
-Host registracija:
-provideStore(), provideState(CONTACT_FEATURE_KEY, contactReducer), provideEffects(ContactEffects)
-Ruta: { path: 'kontakt', component: ContactComponent }
-Demo kontakt podatke promenite kroz [contact] Input kada povežete pravi backend/CMS.
-*/
