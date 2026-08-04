@@ -78,7 +78,6 @@ h1 em { color: var(--accent); font-weight: 400; }
 .channel-header svg { width: 1.35rem; height: 1.35rem; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 .channel-header p { margin: 0; color: var(--muted); font-size: .66rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 .channel-card:hover .channel-header p { color: inherit; }
-.channel-index { position: absolute; top: 1.5rem; right: 1.25rem; color: var(--muted); font-family: Georgia, serif; font-size: .72rem; }
 .channel-body { align-self: stretch; }
 .channel-body h2 { font-family: inherit; font-size: clamp(1rem, 3vw, 1.3rem); font-weight: 500; letter-spacing: -.02em; line-height: 1.35; }
 .channel-body span { display: inline-block; margin-top: .8rem; font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }

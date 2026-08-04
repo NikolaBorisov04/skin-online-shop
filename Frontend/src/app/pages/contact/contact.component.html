@@ -9,7 +9,6 @@
   <section class="channel-grid" aria-label="Kontakt podaci">
     @for (channel of channels; track channel.label; let index = $index) {
       <a class="channel-card" [href]="channel.href" [attr.target]="channel.icon === 'pin' ? '_blank' : null" [attr.rel]="channel.icon === 'pin' ? 'noopener noreferrer' : null">
-        <span class="channel-index">0{{ index + 1 }}</span>
         <div class="channel-header">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             @if (channel.icon === 'pin') { <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle> }
