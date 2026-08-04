@@ -14,7 +14,7 @@ import {
   inject,
 } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import {
   BehaviorSubject,
   Observable,
@@ -76,7 +76,7 @@ export const MOCK_CONTACT_ITEMS: ContactInfo[] = [
     id: 'c-1',
     label: 'Posetite nas',
     value: `${DEFAULT_CONTACT.address}, ${DEFAULT_CONTACT.city}`,
-    href: 'https://maps.google.com/?q=Du%C5%A1anova+96,+Ni%C5%A1',
+    href: 'https://maps.google.com/?q=The+Manual+Co,+Du%C5%A1anova+96,+Ni%C5%A1',
     note: 'Prikaži na Google Maps',
     icon: 'pin',
   },
@@ -190,7 +190,7 @@ interface ContactViewModel {
 @Component({
   selector: 'skin-contact',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
