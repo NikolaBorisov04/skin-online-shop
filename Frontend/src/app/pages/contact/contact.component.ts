@@ -50,7 +50,7 @@ export interface ContactInfo {
   value: string;
   href: string;
   note: string;
-  icon: 'pin' | 'mail' | 'phone';
+  icon: 'pin' | 'mail' | 'phone' | 'instagram' | 'facebook';
 }
 
 export interface ContactDetails {
@@ -74,14 +74,6 @@ export const DEFAULT_CONTACT: ContactDetails = {
 export const MOCK_CONTACT_ITEMS: ContactInfo[] = [
   {
     id: 'c-1',
-    label: 'Posetite nas',
-    value: `${DEFAULT_CONTACT.address}, ${DEFAULT_CONTACT.city}`,
-    href: 'https://maps.google.com/?q=The+Manual+Co,+Du%C5%A1anova+96,+Ni%C5%A1',
-    note: 'Prikaži na Google Maps',
-    icon: 'pin',
-  },
-  {
-    id: 'c-2',
     label: 'Pišite nam',
     value: DEFAULT_CONTACT.email,
     href: `mailto:${DEFAULT_CONTACT.email}`,
@@ -89,12 +81,28 @@ export const MOCK_CONTACT_ITEMS: ContactInfo[] = [
     icon: 'mail',
   },
   {
-    id: 'c-3',
+    id: 'c-2',
     label: 'Pozovite nas',
     value: DEFAULT_CONTACT.phone,
     href: `tel:${DEFAULT_CONTACT.phoneHref}`,
     note: 'Pomoć pri brzoj kupovini',
     icon: 'phone',
+  },
+  {
+    id: 'c-3',
+    label: 'Instagram',
+    value: '@_skin.nis.bags',
+    href: 'https://www.instagram.com/_skin.nis.bags/',
+    note: 'Pratite naše najnovije kolekcije',
+    icon: 'instagram',
+  },
+  {
+    id: 'c-4',
+    label: 'Facebook',
+    value: 'Skin Nis Bags & Accessories',
+    href: 'https://www.facebook.com/tkr.skin',
+    note: 'Budite u toku sa akcijama',
+    icon: 'facebook',
   },
 ];
 

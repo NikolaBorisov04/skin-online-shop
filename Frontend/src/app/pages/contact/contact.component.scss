@@ -97,7 +97,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 @media (min-width: 48rem) {
   .contact-header { padding: 5.5rem 3rem 3.5rem; }
   .hours-section { padding: 4rem 3rem; }
-  .channel-grid { grid-template-columns: repeat(3, 1fr); }
+  .channel-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
   .channel-card { min-height: 17rem; padding: 2rem; border-right: 1px solid var(--line); border-bottom: 0; }
   .channel-card:last-child { border-right: 0; }
   .map-section { grid-template-columns: .82fr 1.18fr; min-height: 39rem; }
