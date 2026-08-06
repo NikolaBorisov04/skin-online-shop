@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID, inject } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 
 export type ThemeMode = 'light' | 'system' | 'dark';
@@ -14,6 +14,8 @@ export type ThemeMode = 'light' | 'system' | 'dark';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
+  private readonly router = inject(Router);
+
   @Input() cartCount = 0;
   @Output() cartOpen = new EventEmitter<void>();
   @Output() themeChange = new EventEmitter<ThemeMode>();
@@ -53,6 +55,7 @@ export class HeaderComponent implements OnInit {
   }
 
   openCart(): void {
+    void this.router.navigate(['/cart']);
     this.cartOpen.emit();
   }
 

@@ -121,6 +121,10 @@
   width: 1.35rem;
 }
 
+.icon-button.active {
+  color: var(--accent, #9a5d34);
+}
+
 .cart-count {
   position: absolute;
   top: .1rem;
