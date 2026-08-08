@@ -34,5 +34,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/lost-password/lost-password.component').then((m) => m.LostPasswordComponent),
   },
   { path: 'zaboravljena-lozinka', redirectTo: 'lost-password', pathMatch: 'full' },
+  {
+    path: 'terms-and-conditions',
+    loadComponent: () => import('./pages/terms-and-conditions/terms-and-conditions').then((m) => m.TermsAndConditionsComponent),
+  },
+  { path: 'uslovi-koriscenja', redirectTo: 'terms-and-conditions', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' },
 ];

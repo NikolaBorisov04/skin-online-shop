@@ -1,0 +1,172 @@
+:host {
+  display: block;
+  min-width: 0;
+  color: var(--text, #171612);
+  background: var(--bg, #f4f0e8);
+  transition: color 320ms ease, background-color 320ms ease;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.terms-page {
+  padding: 4rem 1.25rem 6rem;
+}
+
+.terms-container {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.terms-header {
+  margin-bottom: 3.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--line, rgba(23, 22, 18, 0.16));
+}
+
+.eyebrow {
+  margin: 0 0 0.8rem;
+  color: var(--accent, #9a5d34);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.terms-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.terms-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.terms-section h2 {
+  margin: 0 0 0.5rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.45rem;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text, #171612);
+}
+
+.terms-section h3 {
+  margin: 1.2rem 0 0.25rem;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text, #171612);
+}
+
+.terms-section p {
+  margin: 0;
+  color: var(--muted, #706b61);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.terms-section a {
+  color: var(--text, #171612);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.terms-section a:hover {
+  color: var(--accent, #9a5d34);
+}
+
+.merchant-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0.5rem 0 0;
+  padding: 1.5rem;
+  border: 1px solid var(--line, rgba(23, 22, 18, 0.16));
+  background: var(--surface, #fffdf8);
+}
+
+.merchant-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.merchant-info dt {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent, #9a5d34);
+}
+
+.merchant-info dd {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--text, #171612);
+}
+
+.terms-section ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  color: var(--muted, #706b61);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.terms-section ul li strong {
+  color: var(--text, #171612);
+}
+
+.terms-footer-nav {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line, rgba(23, 22, 18, 0.16));
+}
+
+.text-link {
+  display: inline-flex;
+  padding: 0.4rem 0;
+  color: var(--text, #171612);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.text-link:hover {
+  color: var(--accent, #9a5d34);
+}
+
+@media (min-width: 48rem) {
+  .terms-page {
+    padding: 6rem 2.5rem 8rem;
+  }
+
+  .merchant-info {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
