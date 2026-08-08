@@ -62,11 +62,30 @@ Temu aplikacije za svaki projekat birate sami, uz bitnu napomenu da se originaln
 - **Kredencijali:** Stroga upotreba `.env` i `.gitignore` (bez hardkodovanja tajni).
 
 ================================================================================
-5. PLAĆANJE I INTEGRACIJE
+5. PLAĆANJE I INTEGRACIJE (ALLSECURE PAYMENT GATEWAY)
 ================================================================================
-- **Stripe (Test Mode):** Preko Stripe Elements na frontendu (PCI-DSS compliance).
-- **Stripe Webhook:** Na backendu (`/api/payments/webhook`) koji obrađuje uspele uplate.
-- **Logika nakon uplate:** Promena statusa porudžbine, smanjenje lagera (`stock`), simulacija API poziva kurirskoj službi za dobijanje `trackingNumber`.
+- **AllSecure Payment Gateway (Srbija / Dinarski platni promet):**
+  * Licencirani regionalni payment gateway sa podrškom za DinaCard, Visa, MasterCard i Maestro kartice domaćih i inostranih banaka u dinarskoj valuti (RSD).
+  * Potpuna usklađenost sa PCI-DSS Level 1 i 3D Secure 2.0 (Verified by Visa / MasterCard Identity Check) standardima bezbednosti.
+
+- **Proces i Tok Integracije (Server-to-Server REST / Checkout Flow):**
+  1. **Inicijacija porudžbine (Angular Frontend -> NestJS Backend):**
+     - Korisnik potvrđuje porudžbinu u korpi. Frontend šalje zahtev `POST /api/orders` sa stavkama i podacima o kupcu.
+  2. **Inicijalizacija transakcije sa AllSecure API (NestJS Backend):**
+     - NestJS poziva AllSecure API endpoint (`/api/v3/purchase` ili `/checkout`) prosleđujući parametre porudžbine (`amount`, `currency: 'RSD'`, `orderId`, `successUrl`, `cancelUrl`, `callbackUrl`).
+     - Zahtev se bezbedno potpisuje generisanjem SHA384/SHA512/HMAC potpisa pomoću `Shared Secret` i `API Key` parametara skladištenih u `.env` fajlu.
+  3. **Preusmeravanje ili Hosted Form (Angular Frontend):**
+     - AllSecure vraća bezbedni `redirectUrl` ili `paymentToken`. Frontend preusmerava kupca na bezbednu AllSecure 3D Secure stranicu za unos podataka sa kartice.
+  4. **Asinhroni Callback / Webhook (AllSecure Server -> NestJS Backend):**
+     - Nakon obrade kartice, AllSecure šalje server-to-server obaveštenje na `POST /api/payments/callback`.
+     - NestJS validira autentičnost obaveštenja proverom SHA potpisa.
+  5. **Poslovna logika nakon uplate (NestJS Backend):**
+     - Ako je transakcija odobrena (`status: APPROVED`):
+       * Promena statusa porudžbine u baza podataka u `PAID` / `PROCESSING`.
+       * Smanjenje lagera proizvoda (`stock`) u bazi.
+       * Generisanje Bex Express broja pošiljke (`trackingNumber`) kroz simulirani API servis kurirske službe.
+  6. **Završetak i povratak kupca:**
+     - AllSecure preusmerava kupca na frontend stranicu za potvrdu porudžbine (`/porudzbina/uspeh`).
 
 ================================================================================
 6. PRAVILA ZA SVE BUDUĆE ITERACIJE (OPERATIVNI PROTOKOL)
