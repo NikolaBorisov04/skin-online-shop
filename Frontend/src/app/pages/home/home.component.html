@@ -7,7 +7,7 @@
       <h1 id="hero-title">Koža koja nosi <em>vašu priču.</em></h1>
       <p class="hero-copy">Originalni Manual Co, Prince i Falco komadi za svaki dan — pažljivo odabrani, brzo isporučeni.</p>
       <div class="hero-actions">
-        <button class="primary-button" type="button" (click)="scrollToProducts()">Istraži kolekciju <span aria-hidden="true">→</span></button>
+        <a class="primary-button" routerLink="/products">Istraži kolekciju <span aria-hidden="true">→</span></a>
         <a class="text-link" routerLink="/contact">Kontakt</a>
       </div>
       <dl class="hero-notes">
@@ -35,72 +35,13 @@
   <section class="brands-section" aria-labelledby="brands-title">
     <div class="section-heading">
       <div><p class="eyebrow">Kuće koje cenimo</p><h2 id="brands-title">Tri potpisa. Jedna strast.</h2></div>
-      <a routerLink="/brendovi" class="text-link">Svi brendovi</a>
+      <a routerLink="/products" class="text-link">Svi brendovi</a>
     </div>
     <div class="brand-grid">
-      <button type="button" class="brand-tile manual" (click)="selectBrand('Manual Co'); scrollToProducts()"><h3>Manual Co</h3><p>Autentičan dizajn i zanatska preciznost.</p><strong>Istraži brend →</strong></button>
-      <button type="button" class="brand-tile prince" (click)="selectBrand('Prince'); scrollToProducts()"><h3>Prince</h3><p>Klasična elegancija savremenog karaktera.</p><strong>Istraži brend →</strong></button>
-      <button type="button" class="brand-tile falco" (click)="selectBrand('Falco'); scrollToProducts()"><h3>Falco</h3><p>Funkcionalna forma za dinamičan dan.</p><strong>Istraži brend →</strong></button>
+      <button type="button" class="brand-tile manual" (click)="navigateToBrand('Manual Co')"><h3>Manual Co</h3><p>Autentičan dizajn i zanatska preciznost.</p><strong>Istraži brend →</strong></button>
+      <button type="button" class="brand-tile prince" (click)="navigateToBrand('Prince')"><h3>Prince</h3><p>Klasična elegancija savremenog karaktera.</p><strong>Istraži brend →</strong></button>
+      <button type="button" class="brand-tile falco" (click)="navigateToBrand('Falco')"><h3>Falco</h3><p>Funkcionalna forma za dinamičan dan.</p><strong>Istraži brend →</strong></button>
     </div>
-  </section>
-
-  <section id="izdvajamo" class="products-section" aria-labelledby="products-title">
-    <div class="section-heading products-heading">
-      <div><p class="eyebrow">Skin selekcija</p><h2 id="products-title">Izdvajamo za vas</h2></div>
-      <div class="catalog-search">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
-        <label class="sr-only" for="catalog-search">Pretraži proizvode</label>
-        <input id="catalog-search" type="search" placeholder="Pretraži kolekciju" [ngModel]="search" (ngModelChange)="onSearch($event)">
-      </div>
-    </div>
-
-    <div class="filters" aria-label="Filteri kataloga">
-      <div class="filter-group">
-        @for (brand of brands; track brand) {
-          <button type="button" [class.active]="selectedBrand === brand" [attr.aria-pressed]="selectedBrand === brand" (click)="selectBrand(brand)">{{ brand }}</button>
-        }
-      </div>
-      <label class="category-select">Kategorija
-        <select [ngModel]="selectedCategory" (ngModelChange)="selectCategory($event)">
-          @for (category of categories; track category) { <option [value]="category">{{ category }}</option> }
-        </select>
-      </label>
-    </div>
-
-    @if (vm$ | async; as vm) {
-      <div class="catalog-meta" aria-live="polite"><span>{{ vm.resultCount }} proizvoda</span><span>Ukupna vrednost selekcije: {{ formatPrice(vm.totalValue) }}</span></div>
-
-      @if (vm.loading) {
-        <div class="product-grid" aria-label="Učitavanje proizvoda">
-          @for (item of [1,2,3,4]; track item) { <div class="skeleton-card"><div></div><span></span><span></span></div> }
-        </div>
-      } @else if (vm.error) {
-        <div class="state-message" role="alert"><h3>Katalog trenutno nije dostupan</h3><p>{{ vm.error }}</p><button class="primary-button" type="button" (click)="retry()">Pokušaj ponovo</button></div>
-      } @else if (vm.products.length === 0) {
-        <div class="state-message"><h3>Nema rezultata</h3><p>Promenite pretragu ili izaberite drugi filter.</p><button class="text-link button-link" type="button" (click)="onSearch(''); selectBrand('Svi'); selectCategory('Sve')">Poništi filtere</button></div>
-      } @else {
-        <div class="product-grid">
-          @for (product of vm.products; track product.id) {
-            <article class="product-card">
-              <div class="product-image-wrap">
-                <button type="button" class="product-image-button" (click)="navigateToProduct(product)" [attr.aria-label]="'Otvori proizvod ' + product.name">
-                  <img [src]="product.image" [alt]="product.name + ', ' + product.color" loading="lazy">
-                </button>
-                @if (product.badge) { <span class="badge">{{ product.badge }}</span> }
-                <button type="button" class="favorite" [class.active]="favorites.has(product.id)" [attr.aria-pressed]="favorites.has(product.id)" [attr.aria-label]="favorites.has(product.id) ? 'Ukloni iz omiljenih' : 'Dodaj u omiljene'" (click)="toggleFavorite(product.id)">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"></path></svg>
-                </button>
-                <button type="button" class="quick-add" [class.added]="addedProductId === product.id" (click)="quickAdd(product)">{{ addedProductId === product.id ? 'Dodato u korpu' : 'Brzo dodaj' }}</button>
-              </div>
-              <div class="product-info">
-                <div><p>{{ product.brand }} · {{ product.category }}</p><h3><button type="button" (click)="navigateToProduct(product)">{{ product.name }}</button></h3></div>
-                <div class="price"><strong>{{ formatPrice(product.price) }}</strong>@if (product.oldPrice) { <del>{{ formatPrice(product.oldPrice) }}</del> }</div>
-              </div>
-            </article>
-          }
-        </div>
-      }
-    }
   </section>
 
   <section class="story-section">

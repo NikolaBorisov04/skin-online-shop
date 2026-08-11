@@ -5,6 +5,11 @@ export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   {
+    path: 'products',
+    loadComponent: () => import('./pages/products/products.component').then((m) => m.ProductsComponent),
+  },
+  { path: 'proizvodi', redirectTo: 'products', pathMatch: 'full' },
+  {
     path: 'about',
     loadComponent: () => import('./pages/about/about.component').then((m) => m.AboutComponent),
   },

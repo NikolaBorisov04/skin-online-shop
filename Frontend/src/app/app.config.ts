@@ -6,6 +6,7 @@ import { provideEffects } from '@ngrx/effects';
 import { routes } from './app.routes';
 import { HOME_FEATURE_KEY, homeReducer, HomeEffects } from './pages/home/home.component';
 import { CONTACT_FEATURE_KEY, contactReducer, ContactEffects } from './pages/contact/contact.component';
+import { PRODUCTS_FEATURE_KEY, productsReducer, ProductsEffects } from './pages/products/products.component';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideState(HOME_FEATURE_KEY, homeReducer),
     provideState(CONTACT_FEATURE_KEY, contactReducer),
-    provideEffects(HomeEffects, ContactEffects),
+    provideState(PRODUCTS_FEATURE_KEY, productsReducer),
+    provideEffects(HomeEffects, ContactEffects, ProductsEffects),
   ]
 };

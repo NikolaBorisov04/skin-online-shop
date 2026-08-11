@@ -1,0 +1,117 @@
+<a class="skip-link" href="#katalog-sadrzaj">Pređi na sadržaj kataloga</a>
+
+<main id="katalog-sadrzaj" class="products-page">
+  <header class="products-hero">
+    <p class="eyebrow">Skin Kolekcija</p>
+    <h1>Katalog kožnih predmeta</h1>
+    <p class="hero-copy">Otkrijte ručno selektovane torbe, novčanike, kaiševe i poslovnu galanteriju brendova Manual Co, Prince i Falco.</p>
+  </header>
+
+  <section id="izdvajamo" class="products-section" aria-labelledby="products-title">
+    <div class="section-heading products-heading">
+      <div>
+        <p class="eyebrow">Pretraga i Filtriranje</p>
+        <h2 id="products-title">Svi proizvodi</h2>
+      </div>
+
+      <div class="catalog-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+        <label class="sr-only" for="catalog-search">Pretraži proizvode</label>
+        <input id="catalog-search" type="search" placeholder="Pretraži po nazivu, boji..." [ngModel]="search" (ngModelChange)="onSearch($event)">
+      </div>
+    </div>
+
+    <div class="filters" aria-label="Filteri kataloga">
+      <div class="filter-group" role="tablist" aria-label="Filter po brendu">
+        @for (brand of brands; track brand) {
+          <button type="button" [class.active]="selectedBrand === brand" [attr.aria-pressed]="selectedBrand === brand" (click)="selectBrand(brand)">
+            {{ brand }}
+          </button>
+        }
+      </div>
+
+      <div class="filter-controls">
+        <label class="category-select">
+          <span>Kategorija</span>
+          <select [ngModel]="selectedCategory" (ngModelChange)="selectCategory($event)">
+            @for (category of categories; track category) {
+              <option [value]="category">{{ category }}</option>
+            }
+          </select>
+        </label>
+
+        <label class="category-select">
+          <span>Boja</span>
+          <select [ngModel]="selectedColor" (ngModelChange)="selectColor($event)">
+            @for (color of colors; track color) {
+              <option [value]="color">{{ color }}</option>
+            }
+          </select>
+        </label>
+
+        <label class="category-select">
+          <span>Sortiraj</span>
+          <select [ngModel]="selectedSort" (ngModelChange)="selectSort($event)">
+            @for (opt of sortOptions; track opt.value) {
+              <option [value]="opt.value">{{ opt.label }}</option>
+            }
+          </select>
+        </label>
+      </div>
+    </div>
+
+    @if (vm$ | async; as vm) {
+      @if (vm.loading) {
+        <div class="product-grid" aria-label="Učitavanje kataloga">
+          @for (item of [1,2,3,4,5,6]; track item) {
+            <div class="skeleton-card"><div></div><span></span><span></span></div>
+          }
+        </div>
+      } @else if (vm.error) {
+        <div class="state-message" role="alert">
+          <h3>Katalog trenutno nije dostupan</h3>
+          <p>{{ vm.error }}</p>
+          <button class="primary-button" type="button" (click)="retry()">Pokušaj ponovo</button>
+        </div>
+      } @else if (vm.products.length === 0) {
+        <div class="state-message">
+          <h3>Nema pronađenih proizvoda</h3>
+          <p>Pokušajte sa drugačijim terminom pretrage ili poništite izabrane filtere.</p>
+          <button class="text-link button-link" type="button" (click)="resetFilters()">Poništi sve filtere</button>
+        </div>
+      } @else {
+        <div class="product-grid">
+          @for (product of vm.products; track trackProduct($index, product)) {
+            <article class="product-card">
+              <div class="product-image-wrap">
+                <button type="button" class="product-image-button" (click)="navigateToProduct(product)" [attr.aria-label]="'Otvori proizvod ' + product.name">
+                  <img [src]="product.image" [alt]="product.name + ', boji ' + product.color" loading="lazy">
+                </button>
+                @if (product.badge) { <span class="badge">{{ product.badge }}</span> }
+                <button type="button" class="quick-add" [class.added]="addedProductId === product.id" (click)="quickAdd(product)">
+                  {{ addedProductId === product.id ? 'Dodato u korpu ✓' : 'Brzo dodaj' }}
+                </button>
+              </div>
+
+              <div class="product-info">
+                <div>
+                  <p>{{ product.brand }} · {{ product.category }}</p>
+                  <h3>
+                    <button type="button" (click)="navigateToProduct(product)">{{ product.name }}</button>
+                  </h3>
+                </div>
+
+                <div class="price">
+                  <strong>{{ formatPrice(product.price) }}</strong>
+                  @if (product.oldPrice) {
+                    <del>{{ formatPrice(product.oldPrice) }}</del>
+                  }
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+      }
+    }
+  </section>
+</main>
