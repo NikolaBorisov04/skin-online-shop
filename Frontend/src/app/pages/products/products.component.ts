@@ -62,16 +62,48 @@ const MOCK_PRODUCTS: readonly Product[] = [
       'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1200&q=85',
       'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1200&q=85'
     ],
-    variants: [
-      { id: 'm-01', color: 'Konjak', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85' },
-      { id: 'p-02', color: 'Bordo', image: 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=1200&q=85' },
-      { id: 'f-04', color: 'Crna', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85' }
-    ],
     details: [
       { label: 'Materijal', value: '100% Prirodna goveđa koža' },
       { label: 'Dimenzije', value: '32 x 24 x 12 cm' },
       { label: 'Kopčanje', value: 'Magnetski zatvarač i rajsferšlus' },
       { label: 'Zemlja porekla', value: 'Srbija (Ručni rad)' }
+    ]
+  },
+  {
+    id: 'm-01b',
+    name: 'Luna kožna torba',
+    brand: 'Manual Co',
+    category: 'Torbe',
+    price: 24990,
+    color: 'Bordo',
+    badge: 'Limited',
+    featured: false,
+    image: 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=1200&q=85',
+    description: 'Ručno izrađena od vrhunske punozrnaste goveđe kože, Luna torba u elegantnoj bordo nijansi kombinuje vanvremensku estetiku i maksimalnu funkcionalnost.',
+    gallery: [
+      'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=1200&q=85'
+    ],
+    details: [
+      { label: 'Materijal', value: '100% Prirodna goveđa koža' },
+      { label: 'Dimenzije', value: '32 x 24 x 12 cm' }
+    ]
+  },
+  {
+    id: 'm-01c',
+    name: 'Luna kožna torba',
+    brand: 'Manual Co',
+    category: 'Torbe',
+    price: 24990,
+    color: 'Crna',
+    featured: false,
+    image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85',
+    description: 'Ručno izrađena od vrhunske punozrnaste goveđe kože, Luna torba u crnoj boji je nepogrešiv izbor za svaku priliku.',
+    gallery: [
+      'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85'
+    ],
+    details: [
+      { label: 'Materijal', value: '100% Prirodna goveđa koža' },
+      { label: 'Dimenzije', value: '32 x 24 x 12 cm' }
     ]
   },
   {
@@ -89,13 +121,28 @@ const MOCK_PRODUCTS: readonly Product[] = [
       'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85',
       'https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85'
     ],
-    variants: [
-      { id: 'p-01', color: 'Crna', image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85' },
-      { id: 'p-04', color: 'Tamno braon', image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85' }
-    ],
     details: [
       { label: 'Materijal', value: 'Italijanska biljno štavljena koža' },
       { label: 'RFID Zaštita', value: 'Ugrađeni blokator' },
+      { label: 'Dimenzije', value: '11 x 9 cm' }
+    ]
+  },
+  {
+    id: 'p-01b',
+    name: 'Heritage novčanik',
+    brand: 'Prince',
+    category: 'Novčanici',
+    price: 8990,
+    color: 'Tamno braon',
+    badge: 'Novo',
+    featured: false,
+    image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85',
+    description: 'Elegantan muški novčanik od biljno štavljene italijanske kože u tamno braon tonu.',
+    gallery: [
+      'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85'
+    ],
+    details: [
+      { label: 'Materijal', value: 'Italijanska biljno štavljena koža' },
       { label: 'Dimenzije', value: '11 x 9 cm' }
     ]
   },
@@ -109,30 +156,44 @@ const MOCK_PRODUCTS: readonly Product[] = [
     badge: 'Premium',
     featured: true,
     image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85',
-    description: 'Luksuzna poslovna torba idealna za moderne profesionalce. Posebno obložena pregrada za laptop veličine do 15.6 inča, zasebne pregrade za dokumenta i dodatke. Izrađena od najfinije glatke kože sa mesinganim detaljima.',
+    description: 'Luksuzna poslovna torba idealna za moderne profesionalce. Posebno obložena pregrada za laptop veličine do 15.6 inča, zasebne pregrade za dokumenta i dodatke.',
     gallery: [
       'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85',
       'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85'
     ],
-    variants: [
-      { id: 'f-01', color: 'Tamno braon', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85' },
-      { id: 'm-04', color: 'Crna', image: 'https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85' }
+    details: [
+      { label: 'Pristaje za laptop', value: 'Do 15.6 inča' },
+      { label: 'Materijal', value: 'Prirodna goveđa koža visoke gustine' }
+    ]
+  },
+  {
+    id: 'f-01b',
+    name: 'Linea poslovna torba',
+    brand: 'Falco',
+    category: 'Poslovni program',
+    price: 31990,
+    color: 'Crna',
+    featured: false,
+    image: 'https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85',
+    description: 'Luksuzna poslovna torba idealna za moderne profesionalce u klasičnoj crnoj boji.',
+    gallery: [
+      'https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85'
     ],
     details: [
       { label: 'Pristaje za laptop', value: 'Do 15.6 inča' },
-      { label: 'Materijal', value: 'Prirodna goveđa koža visoke gustine' },
-      { label: 'Okov', value: 'Ojačani mesingani rajsferšlusi' }
+      { label: 'Materijal', value: 'Prirodna goveđa koža visoke gustine' }
     ]
   },
-  { id: 'm-02', name: 'Atelier kožni kaiš', brand: 'Manual Co', category: 'Kaiševi', price: 7490, color: 'Konjak', featured: false, image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85', description: 'Klasičan muški kaiš izrađen iz jednog komada pune kože sa mat niklovanom kopčom.', gallery: ['https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85'], variants: [{ id: 'm-02', color: 'Konjak', image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85' }, { id: 'p-03', color: 'Crna', image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85' }], details: [{ label: 'Širina', value: '3.5 cm' }, { label: 'Kopča', value: 'Srebrna mat litijumska legura' }] },
-  { id: 'p-02', name: 'Royal mini torba', brand: 'Prince', category: 'Torbe', price: 18990, color: 'Bordo', badge: 'Limited', featured: true, image: 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=1200&q=85', description: 'Prefinjena večernja mini torba sa metalnim lancem i satenskom postavom.', gallery: ['https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=1200&q=85'], variants: [{ id: 'p-02', color: 'Bordo', image: 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=1200&q=85' }, { id: 'm-01', color: 'Konjak', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85' }], details: [{ label: 'Materijal', value: 'Teleća napa koža' }, { label: 'Dimenzije', value: '20 x 14 x 6 cm' }] },
-  { id: 'f-02', name: 'Classico card holder', brand: 'Falco', category: 'Novčanici', price: 5990, color: 'Crna', featured: false, image: 'https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85', description: 'Ultra tanak držač kartica od prave kože.', gallery: ['https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Kapacitet', value: 'Do 6 kartica + centralni slot za novčanice' }] },
+  { id: 'm-02', name: 'Atelier kožni kaiš', brand: 'Manual Co', category: 'Kaiševi', price: 7490, color: 'Konjak', featured: false, image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85', description: 'Klasičan muški kaiš izrađen iz jednog komada pune kože sa mat niklovanom kopčom.', gallery: ['https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Širina', value: '3.5 cm' }] },
+  { id: 'm-02b', name: 'Atelier kožni kaiš', brand: 'Manual Co', category: 'Kaiševi', price: 7490, color: 'Crna', featured: false, image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85', description: 'Klasičan muški kaiš izrađen iz jednog komada pune crne kože.', gallery: ['https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Širina', value: '3.5 cm' }] },
+  { id: 'p-02', name: 'Royal mini torba', brand: 'Prince', category: 'Torbe', price: 18990, color: 'Bordo', badge: 'Limited', featured: true, image: 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=1200&q=85', description: 'Prefinjena večernja mini torba sa metalnim lancem i satenskom postavom.', gallery: ['https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Materijal', value: 'Teleća napa koža' }] },
+  { id: 'f-02', name: 'Classico card holder', brand: 'Falco', category: 'Novčanici', price: 5990, color: 'Crna', featured: false, image: 'https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85', description: 'Ultra tanak držač kartica od prave kože.', gallery: ['https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Kapacitet', value: 'Do 6 kartica' }] },
   { id: 'm-03', name: 'Monogram vikend torba', brand: 'Manual Co', category: 'Torbe', price: 38990, color: 'Tamno braon', badge: 'Premium', featured: true, image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85', description: 'Prostrana putna torba stvorena za vikend putovanja i poslovne putanje.', gallery: ['https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Zapremina', value: '42 Litara' }] },
   { id: 'p-03', name: 'Executive muški kaiš', brand: 'Prince', category: 'Kaiševi', price: 6990, color: 'Crna', featured: false, image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85', description: 'Odelski kaiš visokog sjaja za svečane prilike.', gallery: ['https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Širina', value: '3.0 cm' }] },
-  { id: 'f-03', name: 'Modernist ženski novčanik', brand: 'Falco', category: 'Novčanici', price: 9490, oldPrice: 11490, color: 'Crvena', badge: 'Popust', featured: true, image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85', description: 'Prostrani ženski novčanik sa zip-around mehanizmom.', gallery: ['https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Pregrade', value: '12 slotova za kartice, džep sa rajsferšlusom za sitniš' }] },
+  { id: 'f-03', name: 'Modernist ženski novčanik', brand: 'Falco', category: 'Novčanici', price: 9490, oldPrice: 11490, color: 'Crvena', badge: 'Popust', featured: true, image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85', description: 'Prostrani ženski novčanik sa zip-around mehanizmom.', gallery: ['https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Pregrade', value: '12 slotova za kartice' }] },
   { id: 'm-04', name: 'Saffiano futrola za pasoš', brand: 'Manual Co', category: 'Poslovni program', price: 4990, color: 'Crna', badge: 'Kolekcija', featured: false, image: 'https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85', description: 'Zaštitna futrola za pasoš od otporne Saffiano kože.', gallery: ['https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Materijal', value: 'Saffiano goveđa koža' }] },
   { id: 'p-04', name: 'Prestige muški novčanik', brand: 'Prince', category: 'Novčanici', price: 10490, color: 'Tamno braon', featured: true, image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85', description: 'Luksuzan klasičan novčanik sa duplom pregradom.', gallery: ['https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Materijal', value: 'Prirodna koža sa teksturom' }] },
-  { id: 'f-04', name: 'Urban kožni ruksak', brand: 'Falco', category: 'Torbe', price: 28990, color: 'Crna', badge: 'Novo', featured: true, image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85', description: 'Gradski kožni ranac sa minimalističkim siluetama i ergonoimskim naramenicama.', gallery: ['https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Namena', value: 'Svakodnevna / Poslovna' }] },
+  { id: 'f-04', name: 'Urban kožni ruksak', brand: 'Falco', category: 'Torbe', price: 28990, color: 'Crna', badge: 'Novo', featured: true, image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85', description: 'Gradski kožni ranac sa minimalističkim siluetama i ergonomskim naramenicama.', gallery: ['https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Namena', value: 'Svakodnevna / Poslovna' }] },
 ];
 
 @Injectable({ providedIn: 'root' })
@@ -154,9 +215,9 @@ export class MockProductsService {
       { label: 'Zemlja porekla', value: 'Srbija' },
     ];
 
-    const variants = found.variants && found.variants.length ? found.variants : [
-      { id: found.id, color: found.color, image: found.image }
-    ];
+    const variants: ProductVariant[] = MOCK_PRODUCTS
+      .filter((p) => p.name === found.name && p.brand === found.brand)
+      .map((p) => ({ id: p.id, color: p.color, image: p.image }));
 
     return of({
       ...found,
