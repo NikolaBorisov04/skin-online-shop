@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'pocetna', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'products',
     loadComponent: () => import('./pages/products/products.component').then((m) => m.ProductsComponent),
