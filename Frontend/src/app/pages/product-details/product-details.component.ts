@@ -132,7 +132,12 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   navigateToVariant(variant: ProductVariant): void {
-    void this.router.navigate(['/proizvodi', variant.id]);
+    const scrollPosition = window.scrollY;
+    void this.router.navigate(['/proizvodi', variant.id]).then(() => {
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: scrollPosition, behavior: 'instant' });
+      });
+    });
   }
 
   navigateToProduct(product: Product): void {
