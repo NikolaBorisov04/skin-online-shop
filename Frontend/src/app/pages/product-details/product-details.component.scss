@@ -79,7 +79,6 @@ img { display: block; width: 100%; }
   gap: 2.5rem;
 }
 
-/* Gallery */
 .gallery-container {
   display: flex;
   flex-direction: column;
@@ -91,6 +90,8 @@ img { display: block; width: 100%; }
   overflow: hidden;
   background: var(--bg);
   border-radius: 2px;
+  user-select: none;
+  touch-action: pan-y;
 
   img {
     aspect-ratio: 4 / 5;
@@ -100,6 +101,54 @@ img { display: block; width: 100%; }
 
   &:hover img {
     transform: scale(1.02);
+  }
+}
+
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 0;
+  border-radius: 50%;
+  color: #171612;
+  background: rgba(255, 253, 248, 0.88);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transition: background .2s ease, transform .2s ease;
+
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  &:hover {
+    background: #fffdf8;
+    color: #171612;
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  &.prev {
+    left: .8rem;
+  }
+
+  &.next {
+    right: .8rem;
   }
 }
 
@@ -146,7 +195,6 @@ img { display: block; width: 100%; }
   }
 }
 
-/* Info Panel */
 .info-panel {
   display: flex;
   flex-direction: column;
@@ -202,7 +250,6 @@ img { display: block; width: 100%; }
   }
 }
 
-/* Color Variants */
 .variants-section {
   display: flex;
   flex-direction: column;
@@ -254,7 +301,6 @@ img { display: block; width: 100%; }
   }
 }
 
-/* Quantity & Add to Cart */
 .purchase-actions {
   display: flex;
   flex-wrap: wrap;
@@ -361,7 +407,6 @@ img { display: block; width: 100%; }
   }
 }
 
-/* Reassurance */
 .reassurance-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -400,7 +445,6 @@ img { display: block; width: 100%; }
   }
 }
 
-/* Tabs */
 .product-tabs {
   margin-top: 1rem;
   border-top: 1px solid var(--line);
@@ -481,11 +525,19 @@ img { display: block; width: 100%; }
   }
 }
 
-/* Related section */
 .related-section {
   margin-top: 5rem;
   padding-top: 3rem;
   border-top: 1px solid var(--line);
+}
+
+.related-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
 
   .eyebrow {
     margin: 0 0 .5rem;
@@ -497,10 +549,44 @@ img { display: block; width: 100%; }
   }
 
   h2 {
-    margin: 0 0 2rem;
+    margin: 0;
     font-family: Georgia, serif;
     font-size: 1.8rem;
     font-weight: 400;
+  }
+
+  .back-to-products-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text);
+    padding-bottom: .2rem;
+    border-bottom: 1px solid var(--text);
+    transition: color .2s ease, border-color .2s ease;
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform .2s ease;
+    }
+
+    &:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+
+      svg {
+        transform: translateX(4px);
+      }
+    }
   }
 }
 
@@ -574,7 +660,6 @@ img { display: block; width: 100%; }
   }
 }
 
-/* Skeleton */
 .skeleton-wrapper {
   display: grid;
   grid-template-columns: 1fr;
@@ -669,7 +754,6 @@ img { display: block; width: 100%; }
   50% { opacity: 1; }
 }
 
-/* Desktop Breakpoints */
 @media (min-width: 48rem) {
   .product-details-page {
     padding: 3.5rem 3rem 8rem;

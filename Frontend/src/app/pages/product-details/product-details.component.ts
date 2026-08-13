@@ -34,6 +34,8 @@ export class ProductDetailsComponent implements OnInit {
   readonly isAdded$ = new BehaviorSubject<boolean>(false);
   readonly toastMessage$ = new BehaviorSubject<string | null>(null);
 
+  private touchStartX = 0;
+
   readonly relatedProducts$: Observable<Product[]> = combineLatest([
     this.product$,
     this.productsService.fetchProducts(),
@@ -91,6 +93,43 @@ export class ProductDetailsComponent implements OnInit {
 
   selectImage(img: string): void {
     this.selectedImage$.next(img);
+  }
+
+  prevImage(product: Product): void {
+    const gallery = product.gallery && product.gallery.length ? product.gallery : [product.image];
+    if (gallery.length <= 1) return;
+    const currentIndex = gallery.indexOf(this.selectedImage$.value);
+    const prevIndex = currentIndex <= 0 ? gallery.length - 1 : currentIndex - 1;
+    this.selectedImage$.next(gallery[prevIndex]);
+  }
+
+  nextImage(product: Product): void {
+    const gallery = product.gallery && product.gallery.length ? product.gallery : [product.image];
+    if (gallery.length <= 1) return;
+    const currentIndex = gallery.indexOf(this.selectedImage$.value);
+    const nextIndex = currentIndex < 0 || currentIndex >= gallery.length - 1 ? 0 : currentIndex + 1;
+    this.selectedImage$.next(gallery[nextIndex]);
+  }
+
+  onTouchStart(event: TouchEvent): void {
+    if (event.touches.length > 0) {
+      this.touchStartX = event.touches[0].clientX;
+    }
+  }
+
+  onTouchEnd(event: TouchEvent, product: Product): void {
+    if (event.changedTouches.length > 0) {
+      const touchEndX = event.changedTouches[0].clientX;
+      const deltaX = this.touchStartX - touchEndX;
+
+      if (Math.abs(deltaX) > 40) {
+        if (deltaX > 0) {
+          this.nextImage(product);
+        } else {
+          this.prevImage(product);
+        }
+      }
+    }
   }
 
   increaseQuantity(): void {

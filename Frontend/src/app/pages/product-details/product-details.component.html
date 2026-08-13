@@ -44,9 +44,12 @@
     </nav>
 
     <section class="product-main-grid" aria-labelledby="product-name">
-      <!-- Left side: Gallery -->
       <div class="gallery-container">
-        <div class="main-image-wrap">
+        <div
+          class="main-image-wrap"
+          (touchstart)="onTouchStart($event)"
+          (touchend)="onTouchEnd($event, product)"
+        >
           @if (product.badge) {
             <span class="badge">{{ product.badge }}</span>
           }
@@ -54,6 +57,25 @@
             [src]="(selectedImage$ | async) || product.image"
             [alt]="product.name + ' u boji ' + product.color"
           />
+
+          @if (product.gallery && product.gallery.length > 1) {
+            <button
+              type="button"
+              class="gallery-nav prev"
+              (click)="prevImage(product)"
+              aria-label="Prethodna slika"
+            >
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button
+              type="button"
+              class="gallery-nav next"
+              (click)="nextImage(product)"
+              aria-label="Sledeća slika"
+            >
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          }
         </div>
 
         @if (product.gallery && product.gallery.length > 1) {
@@ -73,7 +95,6 @@
         }
       </div>
 
-      <!-- Right side: Info Panel -->
       <div class="info-panel">
         <div class="brand-category">
           <span>{{ product.brand }}</span>
@@ -93,7 +114,6 @@
           }
         </div>
 
-        <!-- Color variants -->
         @if (product.variants && product.variants.length > 0) {
           <div class="variants-section">
             <span class="variant-label">
@@ -116,7 +136,6 @@
           </div>
         }
 
-        <!-- Quantity & Add to Cart -->
         <div class="purchase-actions">
           <div class="quantity-picker" aria-label="Količina">
             <button
@@ -155,7 +174,6 @@
           </button>
         </div>
 
-        <!-- Trust Badges -->
         <div class="reassurance-grid">
           <div class="reassurance-item">
             <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
@@ -173,7 +191,6 @@
           </div>
         </div>
 
-        <!-- Tabs / Accordion -->
         <div class="product-tabs">
           <div class="tab-headers" role="tablist">
             <button
@@ -230,13 +247,18 @@
       </div>
     </section>
 
-    <!-- Related Products -->
     @if (relatedProducts$ | async; as related) {
       @if (related.length > 0) {
         <section class="related-section" aria-labelledby="related-title">
           <div class="related-header">
-            <p class="eyebrow">Istražite još</p>
-            <h2 id="related-title">Slični proizvodi iz ponude</h2>
+            <div>
+              <p class="eyebrow">Istražite još</p>
+              <h2 id="related-title">Slični proizvodi iz ponude</h2>
+            </div>
+            <a routerLink="/proizvodi" class="back-to-products-link">
+              <span>Svi proizvodi</span>
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
           </div>
 
           <div class="related-grid">
