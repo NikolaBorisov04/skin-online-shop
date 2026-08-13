@@ -11,6 +11,11 @@ export const routes: Routes = [
   },
   { path: 'proizvodi', redirectTo: 'products', pathMatch: 'full' },
   {
+    path: 'products/:id',
+    loadComponent: () => import('./pages/product-details/product-details.component').then((m) => m.ProductDetailsComponent),
+  },
+  { path: 'proizvodi/:id', redirectTo: 'products/:id', pathMatch: 'full' },
+  {
     path: 'about',
     loadComponent: () => import('./pages/about/about.component').then((m) => m.AboutComponent),
   },

@@ -1,0 +1,261 @@
+<a class="skip-link" href="#detalji-sadrzaj">Pređi na detalje proizvoda</a>
+
+<main id="detalji-sadrzaj" class="product-details-page">
+  @if (toastMessage$ | async; as toast) {
+    <div class="toast-notification" role="status" aria-live="polite">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      <span>{{ toast }}</span>
+    </div>
+  }
+
+  @if (loading$ | async) {
+    <div class="skeleton-wrapper" aria-label="Učitavanje pojedinosti o proizvodu">
+      <div class="skeleton-gallery">
+        <div class="skeleton-box main-img"></div>
+        <div class="skeleton-thumbs">
+          <div class="skeleton-box thumb"></div>
+          <div class="skeleton-box thumb"></div>
+          <div class="skeleton-box thumb"></div>
+        </div>
+      </div>
+      <div class="skeleton-panel">
+        <div class="skeleton-box line short"></div>
+        <div class="skeleton-box line title"></div>
+        <div class="skeleton-box line price"></div>
+        <div class="skeleton-box line desc"></div>
+        <div class="skeleton-box button"></div>
+      </div>
+    </div>
+  } @else if (error$ | async; as err) {
+    <div class="state-message" role="alert">
+      <h2>Proizvod nije pronađen</h2>
+      <p>{{ err }}</p>
+      <a class="primary-button" routerLink="/proizvodi">Nazad na katalog</a>
+    </div>
+  } @else if (product$ | async; as product) {
+    <nav class="breadcrumbs" aria-label="Putanja">
+      <a routerLink="/pocetna">Početna</a>
+      <span class="sep">/</span>
+      <a routerLink="/proizvodi">Katalog</a>
+      <span class="sep">/</span>
+      <a [routerLink]="['/proizvodi']" [queryParams]="{ category: product.category }">{{ product.category }}</a>
+      <span class="sep">/</span>
+      <span class="current">{{ product.name }}</span>
+    </nav>
+
+    <section class="product-main-grid" aria-labelledby="product-name">
+      <!-- Left side: Gallery -->
+      <div class="gallery-container">
+        <div class="main-image-wrap">
+          @if (product.badge) {
+            <span class="badge">{{ product.badge }}</span>
+          }
+          <img
+            [src]="(selectedImage$ | async) || product.image"
+            [alt]="product.name + ' u boji ' + product.color"
+          />
+        </div>
+
+        @if (product.gallery && product.gallery.length > 1) {
+          <div class="gallery-thumbnails" aria-label="Slike proizvoda">
+            @for (img of product.gallery; track img) {
+              <button
+                type="button"
+                class="thumb-button"
+                [class.active]="(selectedImage$ | async) === img"
+                (click)="selectImage(img)"
+                [attr.aria-label]="'Prikaži sliku ' + ($index + 1)"
+              >
+                <img [src]="img" [alt]="product.name + ' thumb ' + ($index + 1)" />
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Right side: Info Panel -->
+      <div class="info-panel">
+        <div class="brand-category">
+          <span>{{ product.brand }}</span>
+          <span class="dot">•</span>
+          <span>{{ product.category }}</span>
+        </div>
+
+        <h1 id="product-name" class="product-title">{{ product.name }}</h1>
+
+        <div class="price-row">
+          <span class="current-price">{{ formatPrice(product.price) }}</span>
+          @if (product.oldPrice) {
+            <del class="old-price">{{ formatPrice(product.oldPrice) }}</del>
+            <span class="discount-badge">
+              Usteda {{ formatPrice(product.oldPrice - product.price) }}
+            </span>
+          }
+        </div>
+
+        <!-- Color variants -->
+        @if (product.variants && product.variants.length > 0) {
+          <div class="variants-section">
+            <span class="variant-label">
+              Boja: <strong>{{ product.color }}</strong>
+            </span>
+            <div class="variant-list">
+              @for (variant of product.variants; track variant.id) {
+                <button
+                  type="button"
+                  class="variant-card"
+                  [class.active]="variant.id === product.id"
+                  (click)="navigateToVariant(variant)"
+                  [attr.aria-label]="'Izaberi boju ' + variant.color"
+                >
+                  <img [src]="variant.image" [alt]="variant.color" />
+                  <span class="variant-name">{{ variant.color }}</span>
+                </button>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Quantity & Add to Cart -->
+        <div class="purchase-actions">
+          <div class="quantity-picker" aria-label="Količina">
+            <button
+              type="button"
+              (click)="decreaseQuantity()"
+              [disabled]="(quantity$ | async) === 1"
+              aria-label="Smanji količinu"
+            >-</button>
+            <span class="qty-val">{{ quantity$ | async }}</span>
+            <button
+              type="button"
+              (click)="increaseQuantity()"
+              aria-label="Povećaj količinu"
+            >+</button>
+          </div>
+
+          <button
+            type="button"
+            class="add-to-cart-btn"
+            [class.adding]="isAdding$ | async"
+            [class.added]="isAdded$ | async"
+            (click)="addToCart(product)"
+          >
+            <span class="btn-content">
+              @if (isAdding$ | async) {
+                <span class="spinner"></span>
+                <span>Dodavanje...</span>
+              } @else if (isAdded$ | async) {
+                <svg class="check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Dodato u korpu! ✓</span>
+              } @else {
+                <svg class="cart-icon" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span>Dodaj u korpu</span>
+              }
+            </span>
+          </button>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="reassurance-grid">
+          <div class="reassurance-item">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <div>
+              <strong>100% Autentična koža</strong>
+              <p>Garancija kvaliteta izrade i materijala</p>
+            </div>
+          </div>
+          <div class="reassurance-item">
+            <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+            <div>
+              <strong>Brza i besplatna dostava</strong>
+              <p>Besplatna isporuka za sve narudžbine iznad 5.000 RSD</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs / Accordion -->
+        <div class="product-tabs">
+          <div class="tab-headers" role="tablist">
+            <button
+              type="button"
+              role="tab"
+              [attr.aria-selected]="(activeTab$ | async) === 'description'"
+              [class.active]="(activeTab$ | async) === 'description'"
+              (click)="setTab('description')"
+            >Opis proizvoda</button>
+            <button
+              type="button"
+              role="tab"
+              [attr.aria-selected]="(activeTab$ | async) === 'specs'"
+              [class.active]="(activeTab$ | async) === 'specs'"
+              (click)="setTab('specs')"
+            >Specifikacije</button>
+            <button
+              type="button"
+              role="tab"
+              [attr.aria-selected]="(activeTab$ | async) === 'care'"
+              [class.active]="(activeTab$ | async) === 'care'"
+              (click)="setTab('care')"
+            >Održavanje</button>
+          </div>
+
+          <div class="tab-content">
+            @if ((activeTab$ | async) === 'description') {
+              <p class="description-text">{{ product.description }}</p>
+            }
+
+            @if ((activeTab$ | async) === 'specs') {
+              <dl class="specs-list">
+                @for (spec of product.details; track spec.label) {
+                  <div class="spec-row">
+                    <dt>{{ spec.label }}</dt>
+                    <dd>{{ spec.value }}</dd>
+                  </div>
+                }
+              </dl>
+            }
+
+            @if ((activeTab$ | async) === 'care') {
+              <div class="care-text">
+                <p>Kao i svaki prirodni materijal, koža zahteva adekvatnu negu kako bi sačuvala svoju mekoću i sjaj:</p>
+                <ul>
+                  <li>Čuvajte proizvod van direktnog uticaja vlage i toplote.</li>
+                  <li>Čistite isključivo mekom, blago navlaženom krpom.</li>
+                  <li>Povremeno nanesite namensku kremu ili vosak za prirodnu kožu.</li>
+                </ul>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Products -->
+    @if (relatedProducts$ | async; as related) {
+      @if (related.length > 0) {
+        <section class="related-section" aria-labelledby="related-title">
+          <div class="related-header">
+            <p class="eyebrow">Istražite još</p>
+            <h2 id="related-title">Slični proizvodi iz ponude</h2>
+          </div>
+
+          <div class="related-grid">
+            @for (rel of related; track rel.id) {
+              <article class="related-card" (click)="navigateToProduct(rel)">
+                <div class="related-img-wrap">
+                  <img [src]="rel.image" [alt]="rel.name" loading="lazy" />
+                  @if (rel.badge) { <span class="rel-badge">{{ rel.badge }}</span> }
+                </div>
+                <div class="related-info">
+                  <span class="rel-brand">{{ rel.brand }}</span>
+                  <h3 class="rel-title">{{ rel.name }}</h3>
+                  <strong class="rel-price">{{ formatPrice(rel.price) }}</strong>
+                </div>
+              </article>
+            }
+          </div>
+        </section>
+      }
+    }
+  }
+</main>
