@@ -9,6 +9,7 @@ import { Store, createActionGroup, createFeatureSelector, createReducer, createS
 
 export type Brand = 'Manual Co' | 'Prince' | 'Falco';
 export type Category = 'Torbe' | 'Novčanici' | 'Kaiševi' | 'Poslovni program';
+export type Gender = 'Muški' | 'Ženski' | 'Unisex';
 export type SortOption = 'default' | 'bestseller' | 'newest' | 'price-asc' | 'price-desc';
 
 export interface ProductVariant {
@@ -27,6 +28,7 @@ export interface Product {
   name: string;
   brand: Brand;
   category: Category;
+  gender: Gender;
   price: number;
   oldPrice?: number;
   image: string;
@@ -50,6 +52,7 @@ const MOCK_PRODUCTS: readonly Product[] = [
     name: 'Luna kožna torba',
     brand: 'Manual Co',
     category: 'Torbe',
+    gender: 'Ženski',
     price: 24990,
     oldPrice: 27990,
     color: 'Konjak',
@@ -74,6 +77,7 @@ const MOCK_PRODUCTS: readonly Product[] = [
     name: 'Luna kožna torba',
     brand: 'Manual Co',
     category: 'Torbe',
+    gender: 'Ženski',
     price: 24990,
     color: 'Bordo',
     badge: 'Limited',
@@ -93,6 +97,7 @@ const MOCK_PRODUCTS: readonly Product[] = [
     name: 'Luna kožna torba',
     brand: 'Manual Co',
     category: 'Torbe',
+    gender: 'Ženski',
     price: 24990,
     color: 'Crna',
     featured: false,
@@ -111,6 +116,7 @@ const MOCK_PRODUCTS: readonly Product[] = [
     name: 'Heritage novčanik',
     brand: 'Prince',
     category: 'Novčanici',
+    gender: 'Muški',
     price: 8990,
     color: 'Crna',
     badge: 'Novo',
@@ -132,6 +138,7 @@ const MOCK_PRODUCTS: readonly Product[] = [
     name: 'Heritage novčanik',
     brand: 'Prince',
     category: 'Novčanici',
+    gender: 'Muški',
     price: 8990,
     color: 'Tamno braon',
     badge: 'Novo',
@@ -151,6 +158,7 @@ const MOCK_PRODUCTS: readonly Product[] = [
     name: 'Linea poslovna torba',
     brand: 'Falco',
     category: 'Poslovni program',
+    gender: 'Unisex',
     price: 31990,
     color: 'Tamno braon',
     badge: 'Premium',
@@ -171,6 +179,7 @@ const MOCK_PRODUCTS: readonly Product[] = [
     name: 'Linea poslovna torba',
     brand: 'Falco',
     category: 'Poslovni program',
+    gender: 'Unisex',
     price: 31990,
     color: 'Crna',
     featured: false,
@@ -184,16 +193,16 @@ const MOCK_PRODUCTS: readonly Product[] = [
       { label: 'Materijal', value: 'Prirodna goveđa koža visoke gustine' }
     ]
   },
-  { id: 'm-02', name: 'Atelier kožni kaiš', brand: 'Manual Co', category: 'Kaiševi', price: 7490, color: 'Konjak', featured: false, image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85', description: 'Klasičan muški kaiš izrađen iz jednog komada pune kože sa mat niklovanom kopčom.', gallery: ['https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Širina', value: '3.5 cm' }] },
-  { id: 'm-02b', name: 'Atelier kožni kaiš', brand: 'Manual Co', category: 'Kaiševi', price: 7490, color: 'Crna', featured: false, image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85', description: 'Klasičan muški kaiš izrađen iz jednog komada pune crne kože.', gallery: ['https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Širina', value: '3.5 cm' }] },
-  { id: 'p-02', name: 'Royal mini torba', brand: 'Prince', category: 'Torbe', price: 18990, color: 'Bordo', badge: 'Limited', featured: true, image: 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=1200&q=85', description: 'Prefinjena večernja mini torba sa metalnim lancem i satenskom postavom.', gallery: ['https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Materijal', value: 'Teleća napa koža' }] },
-  { id: 'f-02', name: 'Classico card holder', brand: 'Falco', category: 'Novčanici', price: 5990, color: 'Crna', featured: false, image: 'https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85', description: 'Ultra tanak držač kartica od prave kože.', gallery: ['https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Kapacitet', value: 'Do 6 kartica' }] },
-  { id: 'm-03', name: 'Monogram vikend torba', brand: 'Manual Co', category: 'Torbe', price: 38990, color: 'Tamno braon', badge: 'Premium', featured: true, image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85', description: 'Prostrana putna torba stvorena za vikend putovanja i poslovne putanje.', gallery: ['https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Zapremina', value: '42 Litara' }] },
-  { id: 'p-03', name: 'Executive muški kaiš', brand: 'Prince', category: 'Kaiševi', price: 6990, color: 'Crna', featured: false, image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85', description: 'Odelski kaiš visokog sjaja za svečane prilike.', gallery: ['https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Širina', value: '3.0 cm' }] },
-  { id: 'f-03', name: 'Modernist ženski novčanik', brand: 'Falco', category: 'Novčanici', price: 9490, oldPrice: 11490, color: 'Crvena', badge: 'Popust', featured: true, image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85', description: 'Prostrani ženski novčanik sa zip-around mehanizmom.', gallery: ['https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Pregrade', value: '12 slotova za kartice' }] },
-  { id: 'm-04', name: 'Saffiano futrola za pasoš', brand: 'Manual Co', category: 'Poslovni program', price: 4990, color: 'Crna', badge: 'Kolekcija', featured: false, image: 'https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85', description: 'Zaštitna futrola za pasoš od otporne Saffiano kože.', gallery: ['https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Materijal', value: 'Saffiano goveđa koža' }] },
-  { id: 'p-04', name: 'Prestige muški novčanik', brand: 'Prince', category: 'Novčanici', price: 10490, color: 'Tamno braon', featured: true, image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85', description: 'Luksuzan klasičan novčanik sa duplom pregradom.', gallery: ['https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Materijal', value: 'Prirodna koža sa teksturom' }] },
-  { id: 'f-04', name: 'Urban kožni ruksak', brand: 'Falco', category: 'Torbe', price: 28990, color: 'Crna', badge: 'Novo', featured: true, image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85', description: 'Gradski kožni ranac sa minimalističkim siluetama i ergonomskim naramenicama.', gallery: ['https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Namena', value: 'Svakodnevna / Poslovna' }] },
+  { id: 'm-02', name: 'Atelier kožni kaiš', brand: 'Manual Co', category: 'Kaiševi', gender: 'Muški', price: 7490, color: 'Konjak', featured: false, image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85', description: 'Klasičan muški kaiš izrađen iz jednog komada pune kože sa mat niklovanom kopčom.', gallery: ['https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Širina', value: '3.5 cm' }] },
+  { id: 'm-02b', name: 'Atelier kožni kaiš', brand: 'Manual Co', category: 'Kaiševi', gender: 'Muški', price: 7490, color: 'Crna', featured: false, image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85', description: 'Klasičan muški kaiš izrađen iz jednog komada pune crne kože.', gallery: ['https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Širina', value: '3.5 cm' }] },
+  { id: 'p-02', name: 'Royal mini torba', brand: 'Prince', category: 'Torbe', gender: 'Ženski', price: 18990, color: 'Bordo', badge: 'Limited', featured: true, image: 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=1200&q=85', description: 'Prefinjena večernja mini torba sa metalnim lancem i satenskom postavom.', gallery: ['https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Materijal', value: 'Teleća napa koža' }] },
+  { id: 'f-02', name: 'Classico card holder', brand: 'Falco', category: 'Novčanici', gender: 'Unisex', price: 5990, color: 'Crna', featured: false, image: 'https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85', description: 'Ultra tanak držač kartica od prave kože.', gallery: ['https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Kapacitet', value: 'Do 6 kartica' }] },
+  { id: 'm-03', name: 'Monogram vikend torba', brand: 'Manual Co', category: 'Torbe', gender: 'Unisex', price: 38990, color: 'Tamno braon', badge: 'Premium', featured: true, image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85', description: 'Prostrana putna torba stvorena za vikend putovanja i poslovne putanje.', gallery: ['https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Zapremina', value: '42 Litara' }] },
+  { id: 'p-03', name: 'Executive muški kaiš', brand: 'Prince', category: 'Kaiševi', gender: 'Muški', price: 6990, color: 'Crna', featured: false, image: 'https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85', description: 'Odelski kaiš visokog sjaja za svečane prilike.', gallery: ['https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Širina', value: '3.0 cm' }] },
+  { id: 'f-03', name: 'Modernist ženski novčanik', brand: 'Falco', category: 'Novčanici', gender: 'Ženski', price: 9490, oldPrice: 11490, color: 'Crvena', badge: 'Popust', featured: true, image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85', description: 'Prostrani ženski novčanik sa zip-around mehanizmom.', gallery: ['https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Pregrade', value: '12 slotova za kartice' }] },
+  { id: 'm-04', name: 'Saffiano futrola za pasoš', brand: 'Manual Co', category: 'Poslovni program', gender: 'Unisex', price: 4990, color: 'Crna', badge: 'Kolekcija', featured: false, image: 'https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85', description: 'Zaštitna futrola za pasoš od otporne Saffiano kože.', gallery: ['https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Materijal', value: 'Saffiano goveđa koža' }] },
+  { id: 'p-04', name: 'Prestige muški novčanik', brand: 'Prince', category: 'Novčanici', gender: 'Muški', price: 10490, color: 'Tamno braon', featured: true, image: 'https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85', description: 'Luksuzan klasičan novčanik sa duplom pregradom.', gallery: ['https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Materijal', value: 'Prirodna koža sa teksturom' }] },
+  { id: 'f-04', name: 'Urban kožni ruksak', brand: 'Falco', category: 'Torbe', gender: 'Unisex', price: 28990, color: 'Crna', badge: 'Novo', featured: true, image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85', description: 'Gradski kožni ranac sa minimalističkim siluetama i ergonomskim naramenicama.', gallery: ['https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=1200&q=85'], details: [{ label: 'Namena', value: 'Svakodnevna / Poslovna' }] },
 ];
 
 @Injectable({ providedIn: 'root' })
@@ -297,6 +306,7 @@ export class ProductsComponent implements OnInit {
   private readonly search$ = new BehaviorSubject('');
   private readonly brand$ = new BehaviorSubject<Brand | 'Svi'>('Svi');
   private readonly category$ = new BehaviorSubject<Category | 'Sve'>('Sve');
+  private readonly gender$ = new BehaviorSubject<Gender | 'Svi polovi'>('Svi polovi');
   private readonly color$ = new BehaviorSubject<string>('Sve boje');
   private readonly sort$ = new BehaviorSubject<SortOption>('default');
 
@@ -304,6 +314,7 @@ export class ProductsComponent implements OnInit {
 
   readonly brands: readonly (Brand | 'Svi')[] = ['Svi', 'Manual Co', 'Prince', 'Falco'];
   readonly categories: readonly (Category | 'Sve')[] = ['Sve', 'Torbe', 'Novčanici', 'Kaiševi', 'Poslovni program'];
+  readonly genders: readonly (Gender | 'Svi polovi')[] = ['Svi polovi', 'Muški', 'Ženski', 'Unisex'];
   readonly colors: readonly string[] = ['Sve boje', 'Konjak', 'Crna', 'Tamno braon', 'Bordo', 'Crvena'];
   readonly sortOptions: readonly { value: SortOption; label: string }[] = [
     { value: 'default', label: 'Preporučeno' },
@@ -316,6 +327,7 @@ export class ProductsComponent implements OnInit {
   search = '';
   selectedBrand: Brand | 'Svi' = 'Svi';
   selectedCategory: Category | 'Sve' = 'Sve';
+  selectedGender: Gender | 'Svi polovi' = 'Svi polovi';
   selectedColor = 'Sve boje';
   selectedSort: SortOption = 'default';
   addedProductId: string | null = null;
@@ -327,17 +339,19 @@ export class ProductsComponent implements OnInit {
     this.search$.pipe(debounceTime(180), distinctUntilChanged()),
     this.brand$,
     this.category$,
+    this.gender$,
     this.color$,
     this.sort$,
   ]).pipe(
-    map(([products, loading, error, search, brand, category, color, sort]) => {
+    map(([products, loading, error, search, brand, category, gender, color, sort]) => {
       const normalized = search.trim().toLocaleLowerCase('sr');
 
       let filtered = products
         .filter((p) => brand === 'Svi' || p.brand === brand)
         .filter((p) => category === 'Sve' || p.category === category)
+        .filter((p) => gender === 'Svi polovi' || p.gender === gender)
         .filter((p) => color === 'Sve boje' || p.color === color)
-        .filter((p) => !normalized || [p.name, p.brand, p.category, p.color].some((v) => v.toLocaleLowerCase('sr').includes(normalized)));
+        .filter((p) => !normalized || [p.name, p.brand, p.category, p.color, p.gender].some((v) => v.toLocaleLowerCase('sr').includes(normalized)));
 
       filtered = [...filtered].sort((a, b) => {
         if (sort === 'bestseller') return (b.badge === 'Bestseller' ? 1 : 0) - (a.badge === 'Bestseller' ? 1 : 0);
@@ -396,6 +410,18 @@ export class ProductsComponent implements OnInit {
           this.category$.next(matchedCat);
         }
       }
+
+      const genderParam = params['gender'] as string | undefined;
+      if (genderParam) {
+        const normalizedGender = genderParam.trim().toLocaleLowerCase('sr');
+        const matchedGender = this.genders.find(
+          (g) => g.toLocaleLowerCase('sr') === normalizedGender
+        );
+        if (matchedGender) {
+          this.selectedGender = matchedGender;
+          this.gender$.next(matchedGender);
+        }
+      }
     });
   }
 
@@ -421,6 +447,16 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  selectGender(gender: Gender | 'Svi polovi'): void {
+    this.selectedGender = gender;
+    this.gender$.next(gender);
+    void this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { gender: gender === 'Svi polovi' ? null : gender },
+      queryParamsHandling: 'merge',
+    });
+  }
+
   selectColor(color: string): void {
     this.selectedColor = color;
     this.color$.next(color);
@@ -435,11 +471,13 @@ export class ProductsComponent implements OnInit {
     this.search = '';
     this.selectedBrand = 'Svi';
     this.selectedCategory = 'Sve';
+    this.selectedGender = 'Svi polovi';
     this.selectedColor = 'Sve boje';
     this.selectedSort = 'default';
     this.search$.next('');
     this.brand$.next('Svi');
     this.category$.next('Sve');
+    this.gender$.next('Svi polovi');
     this.color$.next('Sve boje');
     this.sort$.next('default');
     void this.router.navigate([], { relativeTo: this.route, queryParams: {} });

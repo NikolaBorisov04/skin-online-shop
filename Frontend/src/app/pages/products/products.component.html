@@ -26,6 +26,15 @@
 
       <div class="filter-controls">
         <label class="category-select">
+          <span>Pol</span>
+          <select [ngModel]="selectedGender" (ngModelChange)="selectGender($event)">
+            @for (gender of genders; track gender) {
+              <option [value]="gender">{{ gender }}</option>
+            }
+          </select>
+        </label>
+
+        <label class="category-select">
           <span>Kategorija</span>
           <select [ngModel]="selectedCategory" (ngModelChange)="selectCategory($event)">
             @for (category of categories; track category) {

@@ -38,6 +38,8 @@
       <span class="sep">/</span>
       <a routerLink="/proizvodi">Katalog</a>
       <span class="sep">/</span>
+      <a [routerLink]="['/proizvodi']" [queryParams]="{ gender: product.gender }">{{ product.gender }}</a>
+      <span class="sep">/</span>
       <a [routerLink]="['/proizvodi']" [queryParams]="{ category: product.category }">{{ product.category }}</a>
       <span class="sep">/</span>
       <span class="current">{{ product.name }}</span>
@@ -98,6 +100,8 @@
       <div class="info-panel">
         <div class="brand-category">
           <span>{{ product.brand }}</span>
+          <span class="dot">•</span>
+          <span>{{ product.gender }}</span>
           <span class="dot">•</span>
           <span>{{ product.category }}</span>
         </div>
