@@ -175,6 +175,8 @@ export class CartComponent implements OnInit {
 
   private readonly localCart$ = new BehaviorSubject<CartItem[]>([...INITIAL_CART_ITEMS]);
 
+  termsAccepted = false;
+
   readonly freeShippingThreshold = FREE_SHIPPING_THRESHOLD;
 
   readonly vm$: Observable<CartViewModel> = combineLatest([
@@ -263,6 +265,7 @@ export class CartComponent implements OnInit {
   }
 
   proceedToCheckout(): void {
+    if (!this.termsAccepted) return;
     void this.router.navigate(['/porudzbina']);
   }
 

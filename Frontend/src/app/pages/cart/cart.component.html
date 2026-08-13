@@ -37,7 +37,7 @@
           </div>
           <h2>Vaša korpa je trenutno prazna</h2>
           <p>Izgleda da još uvek niste dodali nijedan kožni komad u vašu korpu.</p>
-          <a routerLink="/home" class="primary-button">
+          <a routerLink="/products" class="primary-button">
             Istraži kolekciju
             <span aria-hidden="true">→</span>
           </a>
@@ -101,7 +101,7 @@
             </div>
 
             <div class="continue-shopping">
-              <a routerLink="/home" class="text-link">← Nastavi kupovinu</a>
+              <a routerLink="/products" class="text-link">← Nastavi kupovinu</a>
             </div>
           </section>
 
@@ -146,7 +146,23 @@
                 <strong>{{ formatPrice(vm.total) }}</strong>
               </div>
 
-              <button type="button" class="checkout-button" (click)="proceedToCheckout()">
+              <div class="terms-checkbox-box">
+                <label class="checkbox-label" for="terms-checkbox">
+                  <input
+                    id="terms-checkbox"
+                    type="checkbox"
+                    class="custom-checkbox"
+                    [(ngModel)]="termsAccepted"
+                  >
+                  <span class="checkbox-text">
+                    Potvrđujem da sam u potpunosti pročitao/la, razumeo/la i prihvatio/la
+                    <a routerLink="/terms-and-conditions" class="terms-link">opšte uslove korišćenja</a>
+                    i prodaje online prodavnice Skin.
+                  </span>
+                </label>
+              </div>
+
+              <button type="button" class="checkout-button" [disabled]="!termsAccepted" (click)="proceedToCheckout()">
                 Nastavi dalje
                 <span aria-hidden="true">→</span>
               </button>

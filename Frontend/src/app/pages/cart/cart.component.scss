@@ -498,6 +498,90 @@ img { display: block; width: 100%; }
   transform: translateY(0);
 }
 
+.checkout-button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.terms-checkbox-box {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line, rgba(23, 22, 18, 0.2));
+  border-radius: .35rem;
+  background: var(--bg, #f4f0e8);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.terms-checkbox-box:hover {
+  border-color: var(--accent, #9a5d34);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: .8rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  flex-shrink: 0;
+  margin-top: .1rem;
+  border: 2px solid var(--line, rgba(23, 22, 18, 0.35));
+  border-radius: .25rem;
+  background-color: var(--surface, #fffdf8);
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.custom-checkbox::before {
+  content: "";
+  width: 0.65rem;
+  height: 0.4rem;
+  border-left: 2.2px solid var(--surface, #fffdf8);
+  border-bottom: 2.2px solid var(--surface, #fffdf8);
+  transform: rotate(-45deg) scale(0) translate(1px, -1px);
+  transition: transform .15s ease-in-out;
+}
+
+.custom-checkbox:checked {
+  background-color: var(--accent, #9a5d34);
+  border-color: var(--accent, #9a5d34);
+}
+
+.custom-checkbox:checked::before {
+  transform: rotate(-45deg) scale(1) translate(1px, -1px);
+}
+
+.custom-checkbox:focus-visible {
+  outline: 2px solid var(--accent, #9a5d34);
+  outline-offset: 2px;
+}
+
+.checkbox-text {
+  font-size: .84rem;
+  color: var(--text, #171612);
+  line-height: 1.45;
+}
+
+.terms-link {
+  color: var(--accent, #9a5d34);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.terms-link:hover {
+  color: var(--text, #171612);
+}
+
 .trust-badges {
   display: flex;
   flex-direction: column;
