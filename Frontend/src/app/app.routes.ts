@@ -44,5 +44,12 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/terms-and-conditions/terms-and-conditions').then((m) => m.TermsAndConditionsComponent),
   },
   { path: 'uslovi-koriscenja', redirectTo: 'terms-and-conditions', pathMatch: 'full' },
-  { path: '**', redirectTo: 'home' },
+  {
+    path: '404',
+    loadComponent: () => import('./pages/404/404.component').then((m) => m.NotFoundComponent),
+  },
+  {
+    path: '**',
+    loadComponent: () => import('./pages/404/404.component').then((m) => m.NotFoundComponent),
+  },
 ];
